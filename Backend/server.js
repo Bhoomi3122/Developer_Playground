@@ -37,6 +37,11 @@ app.use('/api/auth', authRoutes);    // 🔐 Auth routes
 app.use('/api/code', codeRoutes);    // 💾 Code-saving routes
 app.use('/api/enhance', AIRoutes);  
 
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
+
 // Root Route (optional)
 app.get('/', (req, res) => {
   res.send('API is running...');
