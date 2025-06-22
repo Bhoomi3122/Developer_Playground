@@ -118,8 +118,8 @@ const CodePlayground = ({ snippets = [] }) => {
       };
 
       const token = localStorage.getItem('authToken');
-
-      const response = await fetch('http://localhost:5000/api/code/save', {
+      const baseUrl = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${baseUrl}/api/code/save`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -159,8 +159,8 @@ const CodePlayground = ({ snippets = [] }) => {
       };
 
       const token = localStorage.getItem('authToken');
-
-      const response = await fetch('http://localhost:5000/api/code/save', {
+      const baseUrl = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${baseUrl}/api/code/save`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
