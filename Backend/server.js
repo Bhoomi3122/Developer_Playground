@@ -14,7 +14,7 @@ const app = express();
 
 // Middleware to parse JSON
 app.use(cors({
-  origin: ['http://localhost:5173','https://developer-playground.vercel.app/'],
+  origin: ['http://localhost:5173','https://developer-playground.vercel.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true,  // If you use cookies or authentication
 }));
