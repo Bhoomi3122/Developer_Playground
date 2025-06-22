@@ -64,7 +64,7 @@ const ControlPanel = ({ onRun, onSave, onAI }) => {
     setIsAiRunning(true);
     try {
       await onAI();
-      showToast('AI enhancement completed.');
+      showToast('AI enhancement feature is coming soon.');
     } catch (error) {
       showToast('AI enhancement failed. Please try again.');
     } finally {
