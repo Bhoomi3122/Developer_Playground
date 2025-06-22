@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import SavedCodes from './SavedCodes';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(window.location.pathname === "/");
-
+  const sidebarRef = useRef();
 
   const sidebarData = [
     {
@@ -14,7 +14,7 @@ const Sidebar = () => {
         { name: "Buttons", component: "/button-codes" },
         { name: "Cards", component: "/card-codes" },
         { name: "Forms", component: "/form-codes" },
-         { name: "Modals", component: "/modal-codes" }
+        { name: "Modals", component: "/modal-codes" }
       ]
     },
     {
@@ -36,37 +36,34 @@ const Sidebar = () => {
   ];
 
   const sidebarVariants = {
-    open: {
-      x: 0,
-      width: "280px",
-      transition: {
-        damping: 40,
-        stiffness: 400
-      }
-    },
-    closed: {
-      x: -280,
-      width: "0px",
-      transition: {
-        damping: 40,
-        stiffness: 400
-      }
-    }
+    open: { x: 0, width: "280px", transition: { damping: 40, stiffness: 400 } },
+    closed: { x: -280, width: "0px", transition: { damping: 40, stiffness: 400 } }
   };
 
   const itemVariants = {
-    open: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.3
-      }
-    },
-    closed: {
-      opacity: 0,
-      x: -20
-    }
+    open: { opacity: 1, x: 0, transition: { duration: 0.3 } },
+    closed: { opacity: 0, x: -20 }
   };
+
+  // Close on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isOpen) setIsOpen(false);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isOpen]);
+
+  // Close on click outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isOpen && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen]);
 
   return (
     <>
@@ -84,16 +81,14 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <motion.div
+        ref={sidebarRef}
         variants={sidebarVariants}
         animate={isOpen ? "open" : "closed"}
         className="fixed left-0 top-16 h-[calc(100vh-5rem)] bg-white border-r border-slate-200 shadow-lg z-40 overflow-hidden"
       >
         <div className="flex flex-col h-full">
           {/* Saved Codes Link */}
-          <motion.div
-            variants={itemVariants}
-            className="p-4 border-b border-slate-200"
-          >
+          <motion.div variants={itemVariants} className="p-4 border-b border-slate-200">
             <motion.a
               href="/saved-codes"
               whileHover={{ scale: 1, backgroundColor: "#f8fafc" }}
@@ -117,23 +112,16 @@ const Sidebar = () => {
                 transition={{ delay: sectionIndex * 0.1 }}
                 className="mb-6"
               >
-                {/* Category Header */}
                 <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3 px-1">
                   {section.category}
                 </h3>
 
-                {/* Subcategories */}
-                <div >
-                  {section.subcategories.map((item, itemIndex) => (
+                <div>
+                  {section.subcategories.map((item) => (
                     <motion.a
                       key={item.name}
                       href={item.component}
-                      whileHover={{ 
-                        scale: 1,
-                        x: 3,
-                        backgroundColor: "#f1f5f9",
-                        transition: { duration: 0.2 }
-                      }}
+                      whileHover={{ scale: 1, x: 3, backgroundColor: "#f1f5f9", transition: { duration: 0.2 } }}
                       whileTap={{ scale: 0.98 }}
                       className="flex items-center w-full p-0.5 text-slate-700 hover:text-indigo-600 rounded-lg transition-all duration-200 group"
                     >
@@ -157,7 +145,7 @@ const Sidebar = () => {
         </div>
       </motion.div>
 
-      {/* Overlay */}
+      {/* Overlay (mobile only) */}
       {isOpen && (
         <motion.div
           initial={{ opacity: 0 }}
