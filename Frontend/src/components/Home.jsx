@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 
 const Home = () => {
- 
+
   const features = [
     {
       icon: "🧩",
@@ -84,8 +84,8 @@ const Home = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-lg text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed"
           >
-            Your ultimate destination for high-quality React components, stunning animations, 
-            and modern layout solutions. Build beautiful web applications faster with our 
+            Your ultimate destination for high-quality React components, stunning animations,
+            and modern layout solutions. Build beautiful web applications faster with our
             curated collection of code snippets and components.
           </motion.p>
 
@@ -96,17 +96,21 @@ const Home = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <motion.button
-              whileHover={{ 
-                scale: 1.05, 
-                boxShadow: "0 20px 40px -10px rgba(79, 70, 229, 0.4)" 
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 20px 40px -10px rgba(79, 70, 229, 0.4)"
               }}
               whileTap={{ scale: 0.95 }}
               className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+              onClick={() => {
+                window.dispatchEvent(new Event('openSidebar'));
+              }}
             >
               Explore Components
             </motion.button>
+
             <motion.button
-              whileHover={{ 
+              whileHover={{
                 scale: 1.05,
                 backgroundColor: "#f1f5f9"
               }}
@@ -136,7 +140,7 @@ const Home = () => {
               What You'll Find Here
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Discover our comprehensive collection of development resources, 
+              Discover our comprehensive collection of development resources,
               each category carefully crafted to enhance your projects.
             </p>
           </motion.div>
@@ -146,7 +150,7 @@ const Home = () => {
               <motion.div
                 key={feature.title}
                 variants={itemVariants}
-                whileHover={{ 
+                whileHover={{
                   y: -10,
                   scale: 1.02,
                   boxShadow: "0 25px 50px -10px rgba(0, 0, 0, 0.1)"
@@ -206,7 +210,7 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-lg text-blue-100 mb-8 leading-relaxed"
           >
-            Join thousands of developers who trust CodeHub for their React development needs. 
+            Join thousands of developers who trust CodeHub for their React development needs.
             Start exploring our components and take your projects to the next level.
           </motion.p>
           <motion.div
@@ -217,7 +221,7 @@ const Home = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <motion.button
-              whileHover={{ 
+              whileHover={{
                 scale: 1.05,
                 backgroundColor: "rgba(255, 255, 255, 0.15)"
               }}
@@ -227,7 +231,7 @@ const Home = () => {
               Browse Components
             </motion.button>
             <motion.button
-              whileHover={{ 
+              whileHover={{
                 scale: 1.05,
                 boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.3)"
               }}

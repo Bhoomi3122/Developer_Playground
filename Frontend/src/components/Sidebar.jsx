@@ -65,6 +65,13 @@ const Sidebar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen]);
 
+  useEffect(() => {
+  const openSidebar = () => setIsOpen(true);
+  window.addEventListener('openSidebar', openSidebar);
+  return () => window.removeEventListener('openSidebar', openSidebar);
+}, []);
+
+
   return (
     <>
       {/* Toggle Button */}
