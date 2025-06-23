@@ -47,13 +47,13 @@ const Navbar = () => {
 
             {/* Auth Buttons */}
             {!isAuth ? (
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-5">
                 <Link to="/login" style={{ textDecoration: 'none' }}>
                   <motion.button
-                    whileHover={{ scale: 1.05, backgroundColor: '#f1f5f9' }}
+                    whileHover={{ scale: 1.05, backgroundColor: '#e2e8f0' }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ duration: 0.2 }}
-                    className="px-4 py-2 text-slate-700 hover:text-indigo-600 font-medium rounded-lg transition-colors duration-200"
+                    className="px-4 py-2 text-slate-700  hover:text-indigo-600 font-medium rounded-lg transition-colors duration-200"
                   >
                     Login
                   </motion.button>
@@ -81,7 +81,7 @@ const Navbar = () => {
                 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="px-6 py-2 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
+                className="ml-48 px-6 py-2 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
               >
                 Logout
               </motion.button>

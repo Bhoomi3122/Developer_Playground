@@ -3,6 +3,7 @@ import Home from "./components/Home";
 import Login from "./components/auth/login";
 import Signup from "./components/auth/signup";
 import Layout from "./components/Layout";
+import Feature from './components/Feature';
 import SavedCodes from "./components/SavedCodes";
 import NavbarComponent from "./components/Component_designs/NavbarComponent";
 import ButtonComponent from "./components/Component_designs/ButtonComponent";
@@ -33,6 +34,7 @@ function App() {
           <Route path="/modal-codes" element={<ModalComponent/>}/>
           <Route path="/flip-codes" element={<FlipComponent/>}/>
           <Route path="/book-codes" element={<Books/>}/>
+          <Route path="/features" element={<Feature/>}/>
         </Route>
       </Routes>
     </Router>

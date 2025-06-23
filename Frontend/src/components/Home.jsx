@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
-
+import Feature from './Feature';
+import { useNavigate } from 'react-router-dom';
 const Home = () => {
-
+  const navigate = useNavigate();
   const features = [
     {
       icon: "🧩",
@@ -109,16 +110,17 @@ const Home = () => {
               Explore Components
             </motion.button>
 
-            <motion.button
-              whileHover={{
-                scale: 1.05,
-                backgroundColor: "#f1f5f9"
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:border-indigo-400 transition-all duration-200"
-            >
-              View Documentation
-            </motion.button>
+             <motion.button
+      whileHover={{
+        scale: 1.05,
+        backgroundColor: "#f1f5f9"
+      }}
+      whileTap={{ scale: 0.95 }}
+      className="px-8 py-4 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:border-indigo-400 transition-all duration-200"
+      onClick={() => navigate('/features')}
+    >
+      View Usage Guide
+    </motion.button>
           </motion.div>
         </div>
       </motion.section>

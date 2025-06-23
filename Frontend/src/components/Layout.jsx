@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import CodePlayground from "./codes/CodePlayground";
 import Sidebar from './Sidebar';
+import Feature from './Feature';
 
 const Layout = () => {
   return (
