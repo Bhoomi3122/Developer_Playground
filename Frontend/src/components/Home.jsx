@@ -1,28 +1,27 @@
 import { motion } from 'framer-motion';
-import Feature from './Feature';
+import { Layers, Sparkles, LayoutDashboard } from 'lucide-react';
+
 import { useNavigate } from 'react-router-dom';
 const Home = () => {
   const navigate = useNavigate();
   const features = [
-    {
-      icon: "🧩",
-      title: "Components",
-      description: "Ready-to-use React components including Navbar, Buttons, Cards, and Forms. All professionally designed and fully responsive.",
-      items: ["Navbar", "Buttons", "Cards", "Forms"]
-    },
-    {
-      icon: "✨",
-      title: "Animations",
-      description: "Smooth and engaging animations using Framer Motion. From subtle transitions to eye-catching effects.",
-      items: ["Slide Effects", "Flip Effects", "Fade Transitions"]
-    },
-    {
-      icon: "📐",
-      title: "Layouts",
-      description: "Modern layout systems and responsive design patterns. Master CSS Grid, Flexbox, and responsive techniques.",
-      items: ["Grid Systems", "Flexbox", "Responsive Design"]
-    }
-  ];
+  {
+    icon: <Layers className="w-10 h-10 text-blue-500" />,
+    title: "Components",
+    description: "Easily browse and customize pre-designed UI components with live code editing and preview."
+  },
+  {
+    icon: <Sparkles className="w-10 h-10 text-pink-500" />,
+    title: "Animations",
+    description: "Enhance interactivity with smooth animations powered by Framer Motion, customizable in real-time."
+  },
+  {
+    icon: <LayoutDashboard className="w-10 h-10 text-indigo-500" />,
+    title: "Layouts",
+    description: "Experiment with modern layouts built with CSS Grid and Flexbox, fully responsive and editable."
+  }
+];
+
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -134,57 +133,42 @@ const Home = () => {
         className="py-20 px-4 sm:px-6 lg:px-8"
       >
         <div className="max-w-7xl mx-auto">
-          <motion.div
-            variants={itemVariants}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">
-              What You'll Find Here
-            </h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Discover our comprehensive collection of development resources,
-              each category carefully crafted to enhance your projects.
-            </p>
-          </motion.div>
+  <motion.div
+    variants={itemVariants}
+    className="text-center mb-16"
+  >
+    <h2 className="text-3xl font-bold text-slate-900 mb-4">
+      What You'll Find Here
+    </h2>
+    <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+      DevPlay provides an interactive playground where you can explore UI designs, customize code snippets, preview changes in real-time, and save your personalized versions securely. Build, edit, experiment, and manage your code effortlessly — all within one unified platform.
+    </p>
+  </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                variants={itemVariants}
-                whileHover={{
-                  y: -10,
-                  scale: 1.02,
-                  boxShadow: "0 25px 50px -10px rgba(0, 0, 0, 0.1)"
-                }}
-                className="bg-white rounded-2xl p-8 shadow-lg border border-slate-100 hover:border-indigo-200 transition-all duration-300"
-              >
-                <div className="text-5xl mb-6 text-center">{feature.icon}</div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-4 text-center">
-                  {feature.title}
-                </h3>
-                <p className="text-slate-600 mb-6 text-center leading-relaxed">
-                  {feature.description}
-                </p>
-                <div className="space-y-2">
-                  {feature.items.map((item, itemIndex) => (
-                    <motion.div
-                      key={item}
-                      initial={{ x: -20, opacity: 0 }}
-                      whileInView={{ x: 0, opacity: 1 }}
-                      transition={{ delay: itemIndex * 0.1 }}
-                      viewport={{ once: true }}
-                      className="flex items-center space-x-3"
-                    >
-                      <div className="w-2 h-2 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-full"></div>
-                      <span className="text-slate-700 font-medium">{item}</span>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+  <div className="grid md:grid-cols-3 gap-8">
+    {features.map((feature, index) => (
+      <motion.div
+        key={feature.title}
+        variants={itemVariants}
+        whileHover={{
+          y: -10,
+          scale: 1.02,
+          boxShadow: "0 25px 50px -10px rgba(0, 0, 0, 0.1)"
+        }}
+        className="bg-white rounded-2xl p-8 shadow-lg border border-slate-100 hover:border-indigo-200 transition-all duration-300"
+      >
+        <div className="text-5xl mb-6 text-center">{feature.icon}</div>
+        <h3 className="text-2xl font-bold text-slate-900 mb-4 text-center">
+          {feature.title}
+        </h3>
+        <p className="text-slate-600 mb-6 text-center leading-relaxed">
+          {feature.description}
+        </p>
+      </motion.div>
+    ))}
+  </div>
+</div>
+
       </motion.section>
 
       {/* Call to Action Section */}
@@ -212,37 +196,10 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-lg text-blue-100 mb-8 leading-relaxed"
           >
-            Join thousands of developers who trust CodeHub for their React development needs.
-            Start exploring our components and take your projects to the next level.
+          Join developers and designers who use DevPlay to explore, customize, and save beautiful UI snippets. Start building faster with live code editing and instant previews tailored to your projects.
+
+
           </motion.p>
-          <motion.div
-            initial={{ y: 30, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          >
-            <motion.button
-              whileHover={{
-                scale: 1.05,
-                backgroundColor: "rgba(255, 255, 255, 0.15)"
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-xl border border-white/20 hover:border-white/40 transition-all duration-200"
-            >
-              Browse Components
-            </motion.button>
-            <motion.button
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.3)"
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-white text-indigo-600 font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
-            >
-              Save Your First Code
-            </motion.button>
-          </motion.div>
         </div>
       </motion.section>
     </div>

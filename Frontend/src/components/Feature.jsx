@@ -17,8 +17,7 @@ const FeatureWalkthrough = () => {
       color: "from-blue-500 to-blue-600",
       steps: [
         "Look for the sidebar panel on the left side of your screen",
-        "Click on any category to expand and view available components",
-        "Use the search bar at the top to quickly find specific components"
+        "Click on any category to expand and view available components"
       ]
     },
     {
@@ -28,59 +27,52 @@ const FeatureWalkthrough = () => {
       icon: <Code className="w-12 h-12 text-green-500" />,
       color: "from-green-500 to-green-600",
       steps: [
-        "Click on the main editor area in the center of your workspace",
-        "Start typing to see auto-completion suggestions appear automatically",
-        "Use Ctrl+S (Cmd+S on Mac) to save your work instantly"
+        "Choose a design snippet from the available component designs",
+    
+    "Edit the code directly inside the editor as per your needs."
       ]
     },
     {
-      id: 3,
-      title: "Real-Time Preview Pane",
-      description: "See your changes instantly with our live preview feature. No need to refresh or compile - watch your components come to life as you type.",
-      icon: <Eye className="w-12 h-12 text-purple-500" />,
-      color: "from-purple-500 to-purple-600",
-      steps: [
-        "Find the preview panel on the right side of your editor",
-        "Make any changes in the code editor to see instant updates",
-        "Toggle between desktop and mobile views using the device icons"
-      ]
+      
+  id: 3,
+  title: "Real-Time Preview Panel",
+  description: "View the live output of your code directly in the Live Preview Panel and instantly visualize your changes.",
+  icon: <Eye className="w-12 h-12 text-purple-500" />,
+  color: "from-purple-500 to-purple-600",
+  steps: [
+    "Edit the code directly inside the code editor.",
+    "Click on the Run button to see the updated preview."
+  ]
+
+
     },
     {
-      id: 4,
-      title: "Save Code with JWT Authentication",
-      description: "Securely save your work with our JWT-based authentication system. Your code is protected and accessible only to you across all your devices.",
-      icon: <Save className="w-12 h-12 text-orange-500" />,
-      color: "from-orange-500 to-orange-600",
-      steps: [
-        "Click the 'Save' button in the top toolbar or use Ctrl+S",
-        "Sign in with your account when prompted for secure storage",
-        "Access your saved work from any device using the same account"
-      ]
-    },
+  id: 4,
+  title: "Save Code with JWT Authentication",
+  description: "Save your code snippets to view and access them later anytime.",
+  icon: <Save className="w-12 h-12 text-orange-500" />,
+  color: "from-orange-500 to-orange-600",
+  steps: [
+    "Login or signup if not done already.",
+    "Click on the Save button to save the current code."
+  ]
+}
+,
+   
     {
-      id: 5,
-      title: "AI Enhancement Button",
-      description: "Supercharge your development with AI-powered suggestions. Get intelligent code improvements, optimization tips, and best practice recommendations.",
-      icon: <Sparkles className="w-12 h-12 text-pink-500" />,
-      color: "from-pink-500 to-pink-600",
-      steps: [
-        "Look for the sparkle icon (✨) in your editor toolbar",
-        "Select the code you want to enhance, then click the AI button",
-        "Review and accept the AI suggestions to improve your code"
-      ]
-    },
-    {
-      id: 6,
-      title: "Access Saved Codes",
-      description: "Quickly access all your saved projects and code snippets. Organize, search, and manage your work efficiently with our intuitive file management system.",
-      icon: <Edit3 className="w-12 h-12 text-indigo-500" />,
-      color: "from-indigo-500 to-indigo-600",
-      steps: [
-        "Click on 'My Projects' in the top navigation menu",
-        "Browse through your saved files or use the search function",
-        "Click on any project to open it in the editor instantly"
-      ]
-    }
+  id: 5,
+  title: "Access Saved Codes",
+  description: "Quickly view all your saved codes for easy reuse and management.",
+  icon: <Edit3 className="w-12 h-12 text-indigo-500" />,
+  color: "from-indigo-500 to-indigo-600",
+  steps: [
+    "Go to Saved Codes section from the sidebar.",
+    "View your saved codes.",
+    "Copy the code to use anywhere.",
+    "Unsave the codes if no longer needed."
+  ]
+}
+
   ];
 
   const nextStep = () => {
@@ -191,16 +183,16 @@ const FeatureWalkthrough = () => {
               className="text-center"
             >
               <div className="mb-8">
-                <div className={`w-32 h-32 mx-auto rounded-2xl bg-gradient-to-br ${features[currentStep].color} flex items-center justify-center shadow-lg`}>
+                <div className={`w-22 h-22 mx-auto rounded-2xl bg-gradient-to-br ${features[currentStep].color} flex items-center justify-center shadow-lg`}>
                   {features[currentStep].icon}
                 </div>
               </div>
 
-              <div className="mb-8">
-                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+              <div className="mb-4">
+                <h3 className="text-xl font-bold text-gray-800 mb-2">
                   {features[currentStep].title}
                 </h3>
-                <p className="text-gray-600 text-lg leading-relaxed max-w-lg mx-auto mb-6">
+                <p className="text-gray-600 text-sm leading-relaxed max-w-lg mx-auto mb-2">
                   {features[currentStep].description}
                 </p>
                 
