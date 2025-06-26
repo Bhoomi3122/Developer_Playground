@@ -148,7 +148,7 @@ const CodePlayground = ({ snippets = [] }) => {
       <div className="px-6 py-5 border-b border-slate-200 bg-gradient-to-r from-indigo-400 to-slate-400">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
           <div>
-            <h3 className="text-base font-semibold text-white">{snippet.name}</h3>
+            <h3 className="text-base font-bold text-white">{snippet.name}</h3>
             {snippet.description && (
               <p className="text-sm text-white mt-1">{snippet.description}</p>
             )}
