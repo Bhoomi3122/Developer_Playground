@@ -52,7 +52,7 @@ const Home = () => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="py-20 px-4 sm:px-6 lg:px-8"
+        className="py-10 px-4 sm:px-6 lg:px-8"
       >
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
@@ -126,50 +126,45 @@ const Home = () => {
 
       {/* Features Section */}
       <motion.section
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        className="py-20 px-4 sm:px-6 lg:px-8"
-      >
-        <div className="max-w-7xl mx-auto">
-  <motion.div
-    variants={itemVariants}
-    className="text-center mb-16"
-  >
-    <h2 className="text-3xl font-bold text-slate-900 mb-4">
-      What You'll Find Here
-    </h2>
-    <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-      DevPlay provides an interactive playground where you can explore UI designs, customize code snippets, preview changes in real-time, and save your personalized versions securely. Build, edit, experiment, and manage your code effortlessly — all within one unified platform.
-    </p>
-  </motion.div>
+  variants={containerVariants}
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, amount: 0.3 }}
+  className="py-24 px-4 sm:px-6 lg:px-8 bg-white"
+>
+  <div className="max-w-7xl mx-auto">
+    {/* Header */}
+    <motion.div variants={itemVariants} className="text-center mb-20">
+      <h2 className="text-3xl md:text-4xl font-semibold text-slate-900 tracking-tight mb-4 bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
+        Discover What DevPlay Offers
+      </h2>
+      <p className="text-base md:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        A focused space to explore, experiment, and save your front-end components. Built for developers who value speed, clarity, and structure.
+      </p>
+    </motion.div>
 
-  <div className="grid md:grid-cols-3 gap-8">
-    {features.map((feature, index) => (
-      <motion.div
-        key={feature.title}
-        variants={itemVariants}
-        whileHover={{
-          y: -10,
-          scale: 1.02,
-          boxShadow: "0 25px 50px -10px rgba(0, 0, 0, 0.1)"
-        }}
-        className="bg-white rounded-2xl p-8 shadow-lg border border-slate-100 hover:border-indigo-200 transition-all duration-300"
-      >
-        <div className="text-5xl mb-6 text-center">{feature.icon}</div>
-        <h3 className="text-2xl font-bold text-slate-900 mb-4 text-center">
-          {feature.title}
-        </h3>
-        <p className="text-slate-600 mb-6 text-center leading-relaxed">
-          {feature.description}
-        </p>
-      </motion.div>
-    ))}
-  </div>
+    {/* Features Grid */}
+   <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3">
+  {features.map((feature, index) => (
+    <motion.div
+      key={feature.title}
+      variants={itemVariants}
+      whileHover={{ y: -2 }}
+      className="group rounded-xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md hover:border-indigo-300 transition-all duration-300"
+    >
+      <h3 className="text-base md:text-lg font-medium text-slate-900 mb-2 tracking-tight">
+        {feature.title}
+      </h3>
+
+      <p className="text-sm text-slate-600 leading-relaxed">
+        {feature.description}
+      </p>
+    </motion.div>
+  ))}
 </div>
 
-      </motion.section>
+  </div>
+</motion.section>
 
       {/* Call to Action Section */}
       <motion.section

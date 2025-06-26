@@ -6,7 +6,8 @@ import { useToast } from '../ToastProvider';
 const CodeEditor = ({ codes, onCodeChange }) => {
   const [activeTab, setActiveTab] = useState('html');
   const [copySuccess, setCopySuccess] = useState('');
-    const { showToast } = useToast();
+  const { showToast } = useToast();
+
   const getAvailableTabs = () => {
     const tabs = [];
     if (codes.html !== undefined) tabs.push({ key: 'html', label: 'HTML', icon: '🏗️' });
@@ -33,90 +34,76 @@ const CodeEditor = ({ codes, onCodeChange }) => {
     try {
       await navigator.clipboard.writeText(code);
       setCopySuccess(tab);
-      if (showToast) showToast('Code copied to clipboard!');
-      setTimeout(() => setCopySuccess(''), 2000);
+      showToast('Code copied successfully');
+      setTimeout(() => setCopySuccess(''), 1500);
     } catch {
-      if (showToast) showToast('Failed to copy code. Please try again.');
+      showToast('Failed to copy code');
     }
   };
 
-  const tabVariants = {
-    inactive: { backgroundColor: '#475569', color: '#94a3b8', scale: 0.95 },
-    active: { backgroundColor: '#1e293b', color: '#ffffff', scale: 1 }
-  };
-
-  const contentVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: 20 }
-  };
-
   if (availableTabs.length === 0) {
-    if (showToast) showToast('No code available for this snippet');
     return (
-      <div className="flex items-center justify-center h-96 bg-slate-800 rounded-lg border border-slate-600">
-        <p className="text-slate-400">No code available for this snippet</p>
+      <div className="flex items-center justify-center h-80 bg-gray-50 rounded-lg border border-gray-200">
+        <p className="text-sm text-gray-500">No code provided</p>
       </div>
     );
   }
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col bg-white rounded-lg border border-gray-200 shadow-sm">
       {/* Tabs */}
-      <div className="flex bg-slate-700 rounded-t-lg overflow-hidden relative">
+      <div className="flex bg-gray-50 rounded-t-lg border-b border-gray-200">
         {availableTabs.map((tab) => (
           <motion.button
             key={tab.key}
-            variants={tabVariants}
-            animate={activeTab === tab.key ? 'active' : 'inactive'}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
             onClick={() => setActiveTab(tab.key)}
-            className="flex items-center gap-2 px-4 py-3 font-medium text-sm transition-all duration-200 border-r border-slate-600 last:border-r-0 relative"
+            className={`flex items-center gap-2 px-3 py-2 text-xs font-medium transition-colors border-r border-gray-200 last:border-r-0 ${
+              activeTab === tab.key 
+                ? 'bg-white text-gray-900 border-b-2 border-blue-500' 
+                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+            }`}
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.99 }}
           >
-            <span>{tab.icon}</span>
+            <span className="text-xs">{tab.icon}</span>
             <span>{tab.label}</span>
-            {activeTab === tab.key && (
-              <motion.div
-                layoutId="activeTabIndicator"
-                className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500"
-                initial={false}
-                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-              />
-            )}
           </motion.button>
         ))}
       </div>
 
       {/* Editor */}
-      <div className="flex-1 relative bg-slate-800 rounded-b-lg">
+      <div className="flex-1 relative">
         <button
           onClick={() => handleCopy(codes[activeTab] || '', activeTab)}
-          className="absolute top-3 right-3 p-2 bg-slate-700 text-white rounded-lg hover:bg-slate-600 transition-colors duration-200 z-10"
+          className="absolute top-2 right-2 p-1.5 bg-gray-100 text-gray-600 rounded hover:bg-gray-200 transition-colors z-10"
           title="Copy code"
         >
-          <Copy className="w-4 h-4" />
+          <Copy className="w-3.5 h-3.5" />
         </button>
 
         {copySuccess === activeTab && (
-          <div className="absolute top-3 right-16 bg-green-500 text-white px-3 py-1 rounded-lg text-sm z-40">
-            Copied!
-          </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="absolute top-2 right-12 bg-green-500 text-white px-2 py-1 rounded text-xs z-20"
+          >
+            Copied
+          </motion.div>
         )}
+
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
-            variants={contentVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            transition={{ duration: 0.2 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
             className="h-full"
           >
             <textarea
               value={codes[activeTab] || ''}
               onChange={(e) => handleCodeChange(e.target.value)}
-              className="w-full h-full p-4 bg-slate-800 text-white font-mono text-sm resize-none outline-none rounded-b-lg"
+              className="w-full h-full p-3 bg-white text-gray-800 font-mono text-xs leading-relaxed resize-none outline-none rounded-b-lg border-0 placeholder-gray-400"
               placeholder={`Enter your ${activeTab.toUpperCase()} code here...`}
               spellCheck={false}
             />

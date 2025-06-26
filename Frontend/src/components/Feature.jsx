@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, X, Code, Edit3, Eye, Save, Sparkles, FolderOpen } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';  // assuming you're using react-router-dom
+import { useNavigate } from 'react-router-dom';
 
 const FeatureWalkthrough = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -12,67 +12,58 @@ const FeatureWalkthrough = () => {
     {
       id: 1,
       title: "Explore Components Sidebar",
-      description: "Browse through our extensive library of pre-built components. Easily find and select the components you need for your project with our intuitive sidebar navigation.",
-      icon: <FolderOpen className="w-12 h-12 text-blue-500" />,
-      color: "from-blue-500 to-blue-600",
+      description: "Browse our library of pre-built UI components organized by category for fast access.",
+      icon: <FolderOpen className="w-10 h-10 text-sky-500" />,
+      color: "from-sky-100 to-blue-100",
       steps: [
-        "Look for the sidebar panel on the left side of your screen",
-        "Click on any category to expand and view available components"
+        "Click the sidebar toggle on the top left.",
+        "Navigate through categorized UI components."
       ]
     },
     {
       id: 2,
-      title: "Live Code Editor with Monaco",
-      description: "Write and edit your code with our powerful Monaco editor. Enjoy syntax highlighting, auto-completion, and real-time error detection for a seamless coding experience.",
-      icon: <Code className="w-12 h-12 text-green-500" />,
-      color: "from-green-500 to-green-600",
+      title: "Edit Code with Monaco",
+      description: "Use our modern editor for syntax highlighting, suggestions, and instant feedback.",
+      icon: <Code className="w-10 h-10 text-green-500" />,
+      color: "from-green-100 to-emerald-100",
       steps: [
-        "Choose a design snippet from the available component designs",
-    
-    "Edit the code directly inside the editor as per your needs."
+        "Pick any component design.",
+        "Edit it live with smart assistance."
       ]
     },
     {
-      
-  id: 3,
-  title: "Real-Time Preview Panel",
-  description: "View the live output of your code directly in the Live Preview Panel and instantly visualize your changes.",
-  icon: <Eye className="w-12 h-12 text-purple-500" />,
-  color: "from-purple-500 to-purple-600",
-  steps: [
-    "Edit the code directly inside the code editor.",
-    "Click on the Run button to see the updated preview."
-  ]
-
-
+      id: 3,
+      title: "Live Preview",
+      description: "Watch your changes reflected live as you type. No need to reload.",
+      icon: <Eye className="w-10 h-10 text-purple-500" />,
+      color: "from-purple-100 to-violet-100",
+      steps: [
+        "Type or paste your code.",
+        "Hit 'Run' to preview updates."
+      ]
     },
     {
-  id: 4,
-  title: "Save Code with JWT Authentication",
-  description: "Save your code snippets to view and access them later anytime.",
-  icon: <Save className="w-12 h-12 text-orange-500" />,
-  color: "from-orange-500 to-orange-600",
-  steps: [
-    "Login or signup if not done already.",
-    "Click on the Save button to save the current code."
-  ]
-}
-,
-   
+      id: 4,
+      title: "Save with JWT Authentication",
+      description: "Save your code snippets securely. Retrieve them anytime after login.",
+      icon: <Save className="w-10 h-10 text-orange-500" />,
+      color: "from-orange-100 to-yellow-100",
+      steps: [
+        "Sign in to your account.",
+        "Click 'Save' to store your code."
+      ]
+    },
     {
-  id: 5,
-  title: "Access Saved Codes",
-  description: "Quickly view all your saved codes for easy reuse and management.",
-  icon: <Edit3 className="w-12 h-12 text-indigo-500" />,
-  color: "from-indigo-500 to-indigo-600",
-  steps: [
-    "Go to Saved Codes section from the sidebar.",
-    "View your saved codes.",
-    "Copy the code to use anywhere.",
-    "Unsave the codes if no longer needed."
-  ]
-}
-
+      id: 5,
+      title: "Access Saved Codes",
+      description: "Quickly access, copy or manage your saved snippets from the dashboard.",
+      icon: <Edit3 className="w-10 h-10 text-indigo-500" />,
+      color: "from-indigo-100 to-blue-100",
+      steps: [
+        "Go to Saved Codes section.",
+        "Manage or reuse your stored snippets."
+      ]
+    }
   ];
 
   const nextStep = () => {
@@ -87,183 +78,146 @@ const FeatureWalkthrough = () => {
     }
   };
 
-  const closeWalkthrough = () => {
-    setIsVisible(false);
-  };
-
-  const goHome = () => {
-    navigate("/");
-  };
+  const closeWalkthrough = () => setIsVisible(false);
+  const goHome = () => navigate("/");
 
   if (!isVisible) {
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-white rounded-2xl p-8 shadow-2xl max-w-md mx-4 relative"
+          className="bg-white rounded-xl p-6 shadow-xl w-full max-w-md text-center relative"
         >
-          <button
-            onClick={goHome}
-            className="absolute top-4 right-4 p-2 hover:bg-gray-200 rounded-full"
-          >
-            <X className="w-5 h-5 text-gray-600" />
+          <button onClick={goHome} className="absolute top-4 right-4 hover:bg-gray-100 p-1.5 rounded-full">
+            <X className="w-5 h-5 text-gray-500" />
           </button>
-          <div className="text-center">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Sparkles className="w-8 h-8 text-green-500" />
-            </div>
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">Walkthrough Complete!</h3>
-            <p className="text-gray-600 mb-6">You're all set to start building amazing components.</p>
-            <button
-              onClick={() => setIsVisible(true)}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-colors"
-            >
-              Restart Tour
-            </button>
+          <div className="w-12 h-12 bg-green-100 text-green-600 mx-auto rounded-full flex items-center justify-center mb-4">
+            <Sparkles className="w-6 h-6" />
           </div>
+          <h2 className="text-lg font-semibold text-gray-800 mb-1">Walkthrough Complete</h2>
+          <p className="text-sm text-gray-500 mb-6">You're ready to build with DevPlay!</p>
+          <button
+            onClick={() => setIsVisible(true)}
+            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+          >
+            Restart Tour
+          </button>
         </motion.div>
       </div>
     );
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4">
       <motion.div
-        initial={{ opacity: 0, y: 50, scale: 0.9 }}
+        initial={{ opacity: 0, y: 40, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-        className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden"
+        transition={{ duration: 0.4 }}
+        className="bg-white rounded-2xl shadow-xl max-w-2xl w-full flex flex-col overflow-hidden"
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-8 py-6 border-b border-gray-100">
-          <div className="flex items-center justify-between">
+        <div className="px-6 py-5 bg-gradient-to-r from-slate-50 to-white border-b border-gray-100">
+          <div className="flex justify-between items-center">
             <div>
-              <h2 className="text-2xl font-bold text-gray-800">Feature Walkthrough</h2>
-              <p className="text-gray-600 mt-1">Discover powerful tools to enhance your workflow</p>
+              <h2 className="text-xl font-semibold text-gray-800">Feature Walkthrough</h2>
+              <p className="text-sm text-gray-500">Explore tools and features tailored for you</p>
             </div>
-            <button
-              onClick={closeWalkthrough}
-              className="p-2 hover:bg-white hover:bg-opacity-50 rounded-full transition-colors"
-            >
-              <X className="w-6 h-6 text-gray-500" />
+            <button onClick={closeWalkthrough} className="p-2 rounded-full hover:bg-gray-100 transition">
+              <X className="w-5 h-5 text-gray-500" />
             </button>
           </div>
         </div>
 
         {/* Progress Bar */}
-        <div className="px-8 py-4 bg-gray-50">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-gray-600">
-              Step {currentStep + 1} of {features.length}
-            </span>
-            <span className="text-sm text-gray-500">
-              {Math.round(((currentStep + 1) / features.length) * 100)}% Complete
-            </span>
+        <div className="px-6 py-4 bg-gray-50 border-b border-gray-100">
+          <div className="flex justify-between text-xs text-gray-500 mb-2">
+            <span>Step {currentStep + 1} of {features.length}</span>
+            <span>{Math.round(((currentStep + 1) / features.length) * 100)}% complete</span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
+          <div className="w-full h-2 bg-gray-200 rounded-full">
             <motion.div
-              className="bg-gradient-to-r from-blue-500 to-indigo-500 h-2 rounded-full"
+              className="h-2 bg-blue-500 rounded-full"
               initial={{ width: 0 }}
               animate={{ width: `${((currentStep + 1) / features.length) * 100}%` }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+              transition={{ duration: 0.4 }}
             />
           </div>
         </div>
 
-        {/* Content (Scrollable) */}
-        <div className="flex-1 p-8 overflow-y-auto">
+        {/* Content */}
+        <div className="flex-1 p-6 overflow-y-auto">
           <AnimatePresence mode="wait">
             <motion.div
-              key={currentStep}
-              initial={{ opacity: 0, x: 50 }}
+              key={features[currentStep].id}
+              initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
+              exit={{ opacity: 0, x: -40 }}
+              transition={{ duration: 0.3 }}
               className="text-center"
             >
-              <div className="mb-8">
-                <div className={`w-22 h-22 mx-auto rounded-2xl bg-gradient-to-br ${features[currentStep].color} flex items-center justify-center shadow-lg`}>
-                  {features[currentStep].icon}
-                </div>
+              <div className={`w-16 h-16 mx-auto rounded-xl mb-6 bg-gradient-to-br ${features[currentStep].color} flex items-center justify-center`}>
+                {features[currentStep].icon}
               </div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">{features[currentStep].title}</h3>
+              <p className="text-sm text-gray-600 mb-6">{features[currentStep].description}</p>
 
-              <div className="mb-4">
-                <h3 className="text-xl font-bold text-gray-800 mb-2">
-                  {features[currentStep].title}
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed max-w-lg mx-auto mb-2">
-                  {features[currentStep].description}
-                </p>
-                
-                <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-6 max-w-md mx-auto">
-                  <h4 className="text-sm font-semibold text-gray-700 mb-4 uppercase tracking-wide">
-                    How to Access:
-                  </h4>
-                  <div className="space-y-3">
-                    {features[currentStep].steps.map((step, index) => (
-                      <div key={index} className="flex items-start gap-3">
-                        <div className="flex-shrink-0 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs font-medium">
-                          {index + 1}
-                        </div>
-                        <p className="text-gray-700 text-sm leading-relaxed">
-                          {step}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+              <div className="bg-gray-50 p-4 rounded-md border border-gray-200 text-left max-w-md mx-auto">
+                <h4 className="text-xs font-semibold text-gray-500 uppercase mb-3">How to use:</h4>
+                <ul className="space-y-3">
+                  {features[currentStep].steps.map((step, index) => (
+                    <li key={index} className="flex gap-3 items-start">
+                      <span className="w-5 h-5 bg-blue-500 text-white text-xs font-medium rounded-full flex items-center justify-center">
+                        {index + 1}
+                      </span>
+                      <p className="text-sm text-gray-700">{step}</p>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </motion.div>
           </AnimatePresence>
         </div>
 
-        {/* Navigation buttons fixed at bottom */}
-        <div className="px-8 py-6 bg-gray-50 border-t border-gray-100">
-          <div className="flex items-center justify-between">
-            <button
-              onClick={prevStep}
-              disabled={currentStep === 0}
-              className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all ${
-                currentStep === 0
-                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                  : 'bg-white text-gray-700 hover:bg-gray-100 shadow-sm'
-              }`}
-            >
-              <ChevronLeft className="w-4 h-4" />
-              Previous
-            </button>
+        {/* Footer */}
+        <div className="px-6 py-4 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
+          <button
+            onClick={prevStep}
+            disabled={currentStep === 0}
+            className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition ${
+              currentStep === 0
+                ? 'text-gray-400 bg-gray-100 cursor-not-allowed'
+                : 'text-gray-700 bg-white hover:bg-gray-100'
+            }`}
+          >
+            <ChevronLeft className="w-4 h-4" />
+            Previous
+          </button>
 
-            <div className="flex gap-2">
-              {features.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentStep(index)}
-                  className={`w-3 h-3 rounded-full transition-all ${
-                    index === currentStep
-                      ? 'bg-blue-500 scale-125'
-                      : index < currentStep
-                      ? 'bg-blue-300'
-                      : 'bg-gray-300'
-                  }`}
-                />
-              ))}
-            </div>
-
-            <button
-              onClick={currentStep === features.length - 1 ? closeWalkthrough : nextStep}
-              className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all ${
-                currentStep === features.length - 1
-                  ? 'bg-green-500 hover:bg-green-600 text-white'
-                  : 'bg-blue-500 hover:bg-blue-600 text-white shadow-sm'
-              }`}
-            >
-              {currentStep === features.length - 1 ? 'Finish' : 'Next'}
-              <ChevronRight className="w-4 h-4" />
-            </button>
+          <div className="flex gap-2">
+            {features.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentStep(index)}
+                className={`w-2.5 h-2.5 rounded-full ${
+                  index === currentStep ? 'bg-blue-600' : 'bg-gray-300'
+                } transition`}
+              />
+            ))}
           </div>
-        </div>
 
+          <button
+            onClick={currentStep === features.length - 1 ? closeWalkthrough : nextStep}
+            className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition text-white ${
+              currentStep === features.length - 1
+                ? 'bg-green-600 hover:bg-green-700'
+                : 'bg-blue-600 hover:bg-blue-700'
+            }`}
+          >
+            {currentStep === features.length - 1 ? 'Finish' : 'Next'}
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
       </motion.div>
     </div>
   );
