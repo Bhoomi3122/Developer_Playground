@@ -10,9 +10,9 @@ const CodeEditor = ({ codes, onCodeChange }) => {
 
   const getAvailableTabs = () => {
     const tabs = [];
-    if (codes.html !== undefined) tabs.push({ key: 'html', label: 'HTML', icon: '🏗️' });
-    if (codes.css !== undefined) tabs.push({ key: 'css', label: 'CSS', icon: '🎨' });
-    if (codes.js !== undefined) tabs.push({ key: 'js', label: 'JS', icon: '⚡' });
+    if (codes.html !== undefined) tabs.push({ key: 'html', label: 'HTML' });
+    if (codes.css !== undefined) tabs.push({ key: 'css', label: 'CSS' });
+    if (codes.js !== undefined) tabs.push({ key: 'js', label: 'JS' });
     return tabs;
   };
 
@@ -57,15 +57,15 @@ const CodeEditor = ({ codes, onCodeChange }) => {
           <motion.button
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
-            className={`flex items-center gap-2 px-3 py-2 text-xs font-medium transition-colors border-r border-gray-200 last:border-r-0 ${
+            className={`flex items-center gap-2 px-3 py-2 text-xs font-medium transition-colors border-r border-gray-500 last:border-r-0 ${
               activeTab === tab.key 
-                ? 'bg-white text-gray-900 border-b-2 border-blue-500' 
-                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                ? 'bg-gray-300 text-gray-900 border-b-2 border-blue-500' 
+                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200 border-gray-600'
             }`}
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.99 }}
           >
-            <span className="text-xs">{tab.icon}</span>
+            <span className="text-sm">{tab.icon}</span>
             <span>{tab.label}</span>
           </motion.button>
         ))}
@@ -75,7 +75,7 @@ const CodeEditor = ({ codes, onCodeChange }) => {
       <div className="flex-1 relative">
         <button
           onClick={() => handleCopy(codes[activeTab] || '', activeTab)}
-          className="absolute top-2 right-2 p-1.5 bg-gray-100 text-gray-600 rounded hover:bg-gray-200 transition-colors z-10"
+          className="absolute top-1 right-2 p-1.5 bg-gray-300 text-black rounded hover:bg-gray-500 hover:text-white transition-colors z-10"
           title="Copy code"
         >
           <Copy className="w-3.5 h-3.5" />

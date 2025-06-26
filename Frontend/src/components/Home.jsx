@@ -5,22 +5,22 @@ import { useNavigate } from 'react-router-dom';
 const Home = () => {
   const navigate = useNavigate();
   const features = [
-  {
-    icon: <Layers className="w-10 h-10 text-blue-500" />,
-    title: "Components",
-    description: "Easily browse and customize pre-designed UI components with live code editing and preview."
-  },
-  {
-    icon: <Sparkles className="w-10 h-10 text-pink-500" />,
-    title: "Animations",
-    description: "Enhance interactivity with smooth animations powered by Framer Motion, customizable in real-time."
-  },
-  {
-    icon: <LayoutDashboard className="w-10 h-10 text-indigo-500" />,
-    title: "Layouts",
-    description: "Experiment with modern layouts built with CSS Grid and Flexbox, fully responsive and editable."
-  }
-];
+    {
+      icon: <Layers className="w-10 h-10 text-blue-500" />,
+      title: "Components",
+      description: "Easily browse and customize pre-designed UI components with live code editing and preview."
+    },
+    {
+      icon: <Sparkles className="w-10 h-10 text-pink-500" />,
+      title: "Animations",
+      description: "Enhance interactivity with smooth animations powered by Framer Motion, customizable in real-time."
+    },
+    {
+      icon: <LayoutDashboard className="w-10 h-10 text-indigo-500" />,
+      title: "Layouts",
+      description: "Experiment with modern layouts built with CSS Grid and Flexbox, fully responsive and editable."
+    }
+  ];
 
 
   const containerVariants = {
@@ -109,62 +109,62 @@ const Home = () => {
               Explore Components
             </motion.button>
 
-             <motion.button
-      whileHover={{
-        scale: 1.05,
-        backgroundColor: "#f1f5f9"
-      }}
-      whileTap={{ scale: 0.95 }}
-      className="px-8 py-4 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:border-indigo-400 transition-all duration-200"
-      onClick={() => navigate('/features')}
-    >
-      View Usage Guide
-    </motion.button>
+            <motion.button
+              whileHover={{
+                scale: 1.05,
+                backgroundColor: "#f1f5f9"
+              }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-4 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:border-indigo-400 transition-all duration-200"
+              onClick={() => navigate('/features')}
+            >
+              View Usage Guide
+            </motion.button>
           </motion.div>
         </div>
       </motion.section>
 
       {/* Features Section */}
       <motion.section
-  variants={containerVariants}
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true, amount: 0.3 }}
-  className="py-24 px-4 sm:px-6 lg:px-8 bg-white"
->
-  <div className="max-w-7xl mx-auto">
-    {/* Header */}
-    <motion.div variants={itemVariants} className="text-center mb-20">
-      <h2 className="text-3xl md:text-4xl font-semibold text-slate-900 tracking-tight mb-4 bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
-        Discover What DevPlay Offers
-      </h2>
-      <p className="text-base md:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-        A focused space to explore, experiment, and save your front-end components. Built for developers who value speed, clarity, and structure.
-      </p>
-    </motion.div>
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        className="py-24 px-4 sm:px-6 lg:px-8 bg-white"
+      >
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <motion.div variants={itemVariants} className="text-center mb-20">
+            <h2 className="text-3xl md:text-4xl font-semibold text-slate-900 tracking-tight mb-4 bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
+              Discover What DevPlay Offers
+            </h2>
+            <p className="text-base md:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+              A focused space to explore, experiment, and save your front-end components. Built for developers who value speed, clarity, and structure.
+            </p>
+          </motion.div>
 
-    {/* Features Grid */}
-   <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3">
-  {features.map((feature, index) => (
-    <motion.div
-      key={feature.title}
-      variants={itemVariants}
-      whileHover={{ y: -2 }}
-      className="group rounded-xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md hover:border-indigo-300 transition-all duration-300"
-    >
-      <h3 className="text-base md:text-lg font-medium text-slate-900 mb-2 tracking-tight">
-        {feature.title}
-      </h3>
+          {/* Features Grid */}
+          <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3">
+            {features.map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                variants={itemVariants}
+                whileHover={{ y: -2 }}
+                className="group rounded-xl border border-slate-400 bg-white p-6 shadow-sm hover:shadow-md hover:border-indigo-400 transition-all duration-200"
+              >
+                <h3 className="text-base md:text-lg font-medium text-slate-900 mb-2 tracking-tight">
+                  {feature.title}
+                </h3>
 
-      <p className="text-sm text-slate-600 leading-relaxed">
-        {feature.description}
-      </p>
-    </motion.div>
-  ))}
-</div>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  {feature.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
 
-  </div>
-</motion.section>
+        </div>
+      </motion.section>
 
       {/* Call to Action Section */}
       <motion.section
@@ -172,7 +172,7 @@ const Home = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-indigo-600 to-blue-600"
+        className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-indigo-500 to-blue-500"
       >
         <div className="max-w-4xl mx-auto text-center">
           <motion.h2
@@ -191,7 +191,7 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-lg text-blue-100 mb-8 leading-relaxed"
           >
-          Join developers and designers who use DevPlay to explore, customize, and save beautiful UI snippets. Start building faster with live code editing and instant previews tailored to your projects.
+            Join developers and designers who use DevPlay to explore, customize, and save beautiful UI snippets. Start building faster with live code editing and instant previews tailored to your projects.
 
 
           </motion.p>
