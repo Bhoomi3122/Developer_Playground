@@ -2,43 +2,50 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Save, Bot, CheckCheck } from 'lucide-react';
 import { useToast } from '../ToastProvider';
+
 const ControlPanel = ({ onRun, onSave, onAI }) => {
   const [isRunning, setIsRunning] = useState(false);
   const [runComplete, setRunComplete] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saveComplete, setSaveComplete] = useState(false);
-  const [isAiRunning, setIsAiRunning] = useState(false);
+  // const [isAiRunning, setIsAiRunning] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { showToast } = useToast();
+
   const checkAuth = () => {
     const token = localStorage.getItem('authToken');
     setIsAuthenticated(!!token);
   };
 
-  // Poll for auth status
   useEffect(() => {
-    checkAuth(); // initial check
-
-    const interval = setInterval(() => {
-      checkAuth();
-    }, 1000);
-
+    checkAuth();
+    const interval = setInterval(checkAuth, 1000);
     return () => clearInterval(interval);
   }, []);
 
-  const handleRunClick = async () => {
-    setIsRunning(true);
-    setRunComplete(false);
-    try {
-      await onRun();
+ const handleRunClick = async () => {
+  setIsRunning(true);
+  setRunComplete(false);
+
+  try {
+    await onRun();
+
+    // Ensure "Running..." shows for at least 1s
+    setTimeout(() => {
       setRunComplete(true);
+
+      // Auto-hide success after 2s
       setTimeout(() => setRunComplete(false), 2000);
-    } catch (error) {
-      showToast('Run failed. Please try again.');
-    } finally {
+    }, 1000);
+  } catch (error) {
+    showToast('Run failed. Please try again.');
+  } finally {
+    setTimeout(() => {
       setIsRunning(false);
-    }
-  };
+    }, 1000); // Delay to match above
+  }
+};
+
 
   const handleSaveClick = async () => {
     if (!isAuthenticated) {
@@ -49,10 +56,11 @@ const ControlPanel = ({ onRun, onSave, onAI }) => {
     setIsSaving(true);
     setSaveComplete(false);
     try {
-      await onSave();
-      setSaveComplete(true);
-      showToast('Code saved successfully!');
-      setTimeout(() => setSaveComplete(false), 2000);
+      const result = await onSave();
+      if (result?.success) {
+        setSaveComplete(true);
+        setTimeout(() => setSaveComplete(false), 2000);
+      }
     } catch (error) {
       showToast('Save failed. Please try again.');
     } finally {
@@ -61,15 +69,8 @@ const ControlPanel = ({ onRun, onSave, onAI }) => {
   };
 
   const handleAiClick = async () => {
-    setIsAiRunning(true);
-    try {
-      await onAI();
       showToast('AI enhancement feature is coming soon.');
-    } catch (error) {
-      showToast('AI enhancement failed. Please try again.');
-    } finally {
-      setIsAiRunning(false);
-    }
+    
   };
 
   return (
@@ -81,10 +82,10 @@ const ControlPanel = ({ onRun, onSave, onAI }) => {
     >
       {/* Run Button */}
       <motion.button
-        className="bg-blue-600 hover:bg-blue-700 text-white rounded-2xl shadow px-6 py-3 text-sm font-semibold flex items-center gap-2 disabled:opacity-50 transition-all"
+        className="bg-blue-600  hover:cursor-pointer hover:bg-blue-700 text-white rounded-2xl shadow px-6 py-3 text-sm font-semibold flex items-center gap-2 disabled:opacity-50 transition-all"
         onClick={handleRunClick}
         disabled={isRunning}
-        whileHover={{ scale: 1.05 }}
+        whileHover={{ scale: 1 }}
         whileTap={{ scale: 0.95 }}
       >
         {isRunning ? (
@@ -111,7 +112,7 @@ const ControlPanel = ({ onRun, onSave, onAI }) => {
           isAuthenticated 
             ? 'bg-green-600 hover:bg-green-700' 
             : 'bg-gray-400 cursor-not-allowed'
-        } text-white rounded-2xl shadow px-6 py-3 text-sm font-semibold flex items-center gap-2 disabled:opacity-50 transition-all`}
+        } text-white rounded-2xl shadow px-6 py-3 text-sm font-semibold  hover:cursor-pointer flex items-center gap-2 disabled:opacity-50 transition-all`}
         onClick={handleSaveClick}
         disabled={isSaving || !isAuthenticated}
         whileHover={isAuthenticated ? { scale: 1.05 } : {}}
@@ -137,23 +138,12 @@ const ControlPanel = ({ onRun, onSave, onAI }) => {
 
       {/* AI Button */}
       <motion.button
-        className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-2xl shadow px-6 py-3 text-sm font-semibold flex items-center gap-2 disabled:opacity-50 transition-all"
+        className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-2xl shadow px-6 py-3 text-sm font-semibold flex items-center gap-2 disabled:opacity-50 transition-all hover:cursor-pointer"
         onClick={handleAiClick}
-        disabled={isAiRunning}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
-        {isAiRunning ? (
-          <>
-            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-            AI Working...
-          </>
-        ) : (
-          <>
-            <Bot className="w-4 h-4" />
-            AI Enhance
-          </>
-        )}
+        AI Enhance
       </motion.button>
     </motion.div>
   );

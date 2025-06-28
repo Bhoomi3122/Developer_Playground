@@ -174,12 +174,12 @@ const SavedCodes = () => {
             animate={{ y: 10, opacity: 1 }}
             exit={{ y: -30, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="absolute left-1/2 transform -translate-x-1/2 z-20 w-full max-w-md p-6 rounded-lg shadow-md bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-medium"
+            className="absolute left-1/2 transform -translate-x-1/2 z-20 w-full max-w-md p-6 rounded-lg shadow-md bg-gradient-to-r from-indigo-400 to-blue-500 text-white font-medium"
           >
             <p className="mb-4">Are you sure you want to unsave this code snippet?</p>
             <div className="flex justify-end gap-3">
-              <button onClick={cancelUnsave} className="px-4 py-2 bg-white text-indigo-600 rounded-lg font-semibold">Cancel</button>
-              <button onClick={() => handleUnsave(codeToDelete)} className="px-4 py-2 bg-white text-red-600 rounded-lg font-semibold">Yes, Unsave</button>
+              <button onClick={cancelUnsave} className="px-4 py-2 bg-white text-indigo-600 rounded-lg font-semibold hover:cursor-pointer">Cancel</button>
+              <button onClick={() => handleUnsave(codeToDelete)} className="px-4 py-2 bg-white text-red-600 rounded-lg font-semibold hover:cursor-pointer">Yes, Unsave</button>
             </div>
           </motion.div>
         )}
@@ -225,14 +225,14 @@ const SavedCodes = () => {
                   <div className="flex flex-wrap gap-3">
                     <button
                       onClick={() => handleViewCode(code.id)}
-                      className="flex items-center gap-2 px-3 py-1.5 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+                      className="flex items-center gap-2 px-3 py-1.5 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition hover:cursor-pointer"
                     >
                       <Eye className="w-4 h-4" />
                       {isExpanded ? 'Hide Code' : 'View Code'}
                     </button>
                     <button
                       onClick={() => handleUnsaveClick(code.id)}
-                      className="flex items-center gap-2 px-3 py-1.5 text-sm bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition"
+                      className="flex items-center gap-2 px-3 py-1.5 text-sm bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300  transition hover:cursor-pointer"
                     >
                       <Trash2 className="w-4 h-4" />
                       Unsave

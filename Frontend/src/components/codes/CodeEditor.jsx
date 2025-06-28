@@ -34,7 +34,6 @@ const CodeEditor = ({ codes, onCodeChange }) => {
     try {
       await navigator.clipboard.writeText(code);
       setCopySuccess(tab);
-      showToast('Code copied successfully');
       setTimeout(() => setCopySuccess(''), 1500);
     } catch {
       showToast('Failed to copy code');
@@ -52,44 +51,51 @@ const CodeEditor = ({ codes, onCodeChange }) => {
   return (
     <div className="h-full flex flex-col bg-white rounded-lg border border-gray-200 shadow-sm">
       {/* Tabs */}
-      <div className="flex bg-gray-50 rounded-t-lg border-b border-gray-200">
-        {availableTabs.map((tab) => (
-          <motion.button
-            key={tab.key}
-            onClick={() => setActiveTab(tab.key)}
-            className={`flex items-center gap-2 px-3 py-2 text-xs font-medium transition-colors border-r border-gray-500 last:border-r-0 ${
-              activeTab === tab.key 
-                ? 'bg-gray-300 text-gray-900 border-b-2 border-blue-500' 
-                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200 border-gray-600'
-            }`}
-            whileHover={{ scale: 1.01 }}
-            whileTap={{ scale: 0.99 }}
+      <div className="flex items-center justify-between bg-gray-50 rounded-t-lg border-b border-gray-200 ">
+        {/* Tabs */}
+        <div className="flex">
+          {availableTabs.map((tab) => (
+            <motion.button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              className={`flex items-center gap-2 px-3 py-2 text-xs font-medium transition-colors hover:cursor-pointer border-r border-gray-500 last:border-r-0 ${activeTab === tab.key
+                  ? 'bg-gray-300 text-gray-900 border-b-2 border-blue-500'
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200 border-gray-600'
+                }`}
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
+            >
+              <span className="text-sm">{tab.icon}</span>
+              <span>{tab.label}</span>
+            </motion.button>
+          ))}
+        </div>
+
+        {/* Copy button */}
+        <div className="flex items-center gap-2 pr-2 ">
+          {copySuccess === activeTab && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="bg-green-500 text-white px-2 py-1 rounded text-xs"
+            >
+              Copied
+            </motion.div>
+          )}
+
+          <button
+            onClick={() => handleCopy(codes[activeTab] || '', activeTab)}
+            className="p-1.5 bg-gray-300 text-black rounded hover:bg-gray-500 hover:cursor-pointer hover:text-white transition-colors"
+            title="Copy code"
           >
-            <span className="text-sm">{tab.icon}</span>
-            <span>{tab.label}</span>
-          </motion.button>
-        ))}
+            <Copy className="w-3.5 h-3.5" />
+          </button>
+        </div>
       </div>
+
 
       {/* Editor */}
       <div className="flex-1 relative">
-        <button
-          onClick={() => handleCopy(codes[activeTab] || '', activeTab)}
-          className="absolute top-1 right-2 p-1.5 bg-gray-300 text-black rounded hover:bg-gray-500 hover:text-white transition-colors z-10"
-          title="Copy code"
-        >
-          <Copy className="w-3.5 h-3.5" />
-        </button>
-
-        {copySuccess === activeTab && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="absolute top-2 right-12 bg-green-500 text-white px-2 py-1 rounded text-xs z-20"
-          >
-            Copied
-          </motion.div>
-        )}
 
         <AnimatePresence mode="wait">
           <motion.div
