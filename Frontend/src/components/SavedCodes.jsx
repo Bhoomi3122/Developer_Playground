@@ -93,8 +93,9 @@ const SavedCodes = () => {
   const handleUnsave = async (id) => {
     setShowConfirmModal(false);
     const authToken = localStorage.getItem("authToken");
+     const baseUrl = import.meta.env.VITE_API_URL;
     try {
-      const response = await fetch(`http://localhost:5000/api/code/delete/${id}`, {
+      const response = await fetch(`${baseUrl}/api/code/delete/${id}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${authToken}`,
