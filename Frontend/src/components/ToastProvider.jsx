@@ -29,10 +29,10 @@ export const ToastProvider = ({ children }) => {
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.3 }}
                         className="fixed top-20 left-1/2 -translate-x-1/2 z-[9999] 
-                 px-6 py-2 bg-gradient-to-r from-indigo-600 to-blue-600 
+                 px-6 py-2 bg-gradient-to-r from-neutral-700 to-neutral-800 
                  text-white font-medium rounded-lg shadow-md 
                  hover:shadow-lg transition-all duration-200 
-                 text-center text-base w-auto max-w-md"
+                 text-center text-base w-auto max-w-md border border-neutral-600"
                     >
                         {toast.message}
                     </motion.div>

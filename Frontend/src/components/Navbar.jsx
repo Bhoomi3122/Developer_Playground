@@ -31,7 +31,7 @@ const Navbar = () => {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm"
+        className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-200 shadow-sm"
       >
         <div className="max-w-7xl mx-4">
           <div className="flex justify-between items-center h-16">
@@ -40,7 +40,7 @@ const Navbar = () => {
               whileHover={{ scale: 1.05 }}
               className="flex-shrink-0"
             >
-              <a href="/" className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
+              <a href="/" className="text-2xl font-bold bg-gradient-to-r from-stone-800 to-neutral-700 bg-clip-text text-transparent">
                 DevPlay
               </a>
             </motion.div>
@@ -50,10 +50,10 @@ const Navbar = () => {
               <div className="flex items-center space-x-5">
                 <Link to="/login" style={{ textDecoration: 'none' }}>
                   <motion.button
-                    whileHover={{ scale: 1.05, backgroundColor: '#e2e8f0' }}
+                    whileHover={{ scale: 1.05, backgroundColor: '#f5f5f5' }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ duration: 0.2 }}
-                    className="px-4 py-2 text-slate-700  hover:text-indigo-600 font-medium rounded-lg transition-colors duration-200 hover:cursor-pointer"
+                    className="px-4 py-2 text-neutral-700 hover:text-stone-800 font-medium rounded-lg transition-colors duration-200 hover:cursor-pointer"
                   >
                     Login
                   </motion.button>
@@ -62,11 +62,11 @@ const Navbar = () => {
                   <motion.button
                     whileHover={{
                       scale: 1.05,
-                      boxShadow: '0 10px 25px -5px rgba(79, 70, 229, 0.3)',
+                      boxShadow: '0 10px 25px -5px rgba(239, 68, 68, 0.3)',
                     }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ duration: 0.2 }}
-                    className="px-6 py-2 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 hover:cursor-pointer"
+                    className="px-6 py-2 bg-gradient-to-r from-rose-500 to-rose-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 hover:cursor-pointer"
                   >
                     Sign Up
                   </motion.button>
@@ -77,11 +77,11 @@ const Navbar = () => {
                 onClick={() => setShowModal(true)}
                 whileHover={{
                   scale: 1.05,
-                  boxShadow: '0 10px 25px -5px rgba(79, 70, 229, 0.3)',
+                  boxShadow: '0 10px 25px -5px rgba(239, 68, 68, 0.3)',
                 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="ml-48 px-6 py-2 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 hover:cursor-pointer"
+                className="ml-48 px-6 py-2 bg-gradient-to-r from-rose-500 to-rose-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 hover:cursor-pointer"
               >
                 Logout
               </motion.button>
@@ -95,14 +95,14 @@ const Navbar = () => {
         {showModal && (
           <>
             <motion.div
-              className="fixed inset-0 bg-black bg-opacity-40 z-[9998]"
+              className="fixed inset-0 bg-neutral-900 bg-opacity-40 z-[9998]"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             />
             <motion.div
               className="fixed top-1/4 left-1/2 -translate-x-1/2 z-[9999] 
-                         bg-gradient-to-r from-indigo-600 to-blue-600 
+                         bg-gradient-to-r from-stone-700 to-stone-800 
                          text-white font-medium rounded-lg shadow-md 
                          px-6 py-4 w-full max-w-md text-center"
               initial={{ opacity: 0, y: -30 }}
@@ -117,13 +117,13 @@ const Navbar = () => {
                     handleLogout();
                     setShowModal(false);
                   }}
-                  className="bg-white text-indigo-600 font-semibold px-4 py-2 rounded hover:bg-gray-100 transition"
+                  className="bg-white text-stone-700 font-semibold px-4 py-2 rounded hover:bg-neutral-100 transition"
                 >
                   Confirm
                 </button>
                 <button
                   onClick={() => setShowModal(false)}
-                  className="bg-transparent border border-white text-white px-4 py-2 rounded hover:bg-white hover:text-indigo-600 transition"
+                  className="bg-transparent border border-white text-white px-4 py-2 rounded hover:bg-white hover:text-stone-700 transition"
                 >
                   Cancel
                 </button>

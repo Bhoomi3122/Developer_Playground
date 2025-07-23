@@ -2,15 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Save, Bot, CheckCheck } from 'lucide-react';
 import { useToast } from '../ToastProvider';
+import AIComponent from './AI';
+import { useSnippetContext } from '../../context/SnippetContext';
 
-const ControlPanel = ({ onRun, onSave, onAI }) => {
+const ControlPanel = ({ onRun, onSave, onAI, snippetId, snippetInfo, onCodeUpdate }) => {
   const [isRunning, setIsRunning] = useState(false);
   const [runComplete, setRunComplete] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saveComplete, setSaveComplete] = useState(false);
-  // const [isAiRunning, setIsAiRunning] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isShow, setIsShow] = useState(false);
   const { showToast } = useToast();
+  const { bindSnippet, isChatOpen, currentSnippet } = useSnippetContext();
 
   const checkAuth = () => {
     const token = localStorage.getItem('authToken');
@@ -23,29 +26,28 @@ const ControlPanel = ({ onRun, onSave, onAI }) => {
     return () => clearInterval(interval);
   }, []);
 
- const handleRunClick = async () => {
-  setIsRunning(true);
-  setRunComplete(false);
+  const handleRunClick = async () => {
+    setIsRunning(true);
+    setRunComplete(false);
 
-  try {
-    await onRun();
+    try {
+      await onRun();
 
-    // Ensure "Running..." shows for at least 1s
-    setTimeout(() => {
-      setRunComplete(true);
+      // Ensure "Running..." shows for at least 1s
+      setTimeout(() => {
+        setRunComplete(true);
 
-      // Auto-hide success after 2s
-      setTimeout(() => setRunComplete(false), 2000);
-    }, 1000);
-  } catch (error) {
-    showToast('Run failed. Please try again.');
-  } finally {
-    setTimeout(() => {
-      setIsRunning(false);
-    }, 1000); // Delay to match above
-  }
-};
-
+        // Auto-hide success after 2s
+        setTimeout(() => setRunComplete(false), 2000);
+      }, 1000);
+    } catch (error) {
+      showToast('Run failed. Please try again.');
+    } finally {
+      setTimeout(() => {
+        setIsRunning(false);
+      }, 1000); // Delay to match above
+    }
+  };
 
   const handleSaveClick = async () => {
     if (!isAuthenticated) {
@@ -69,23 +71,33 @@ const ControlPanel = ({ onRun, onSave, onAI }) => {
   };
 
   const handleAiClick = async () => {
-      showToast('AI enhancement feature is coming soon.');
-    
+    // Check if switching to a different snippet
+    if (isChatOpen && currentSnippet !== snippetId) {
+      showToast('Switching to new snippet context...');
+    }
+
+    // Bind the current snippet to the chat context
+    bindSnippet(snippetId, {
+      ...snippetInfo,
+      onCodeUpdate
+    });
+
+    setIsShow(true);
   };
 
   return (
-    <motion.div 
-      className="flex justify-center gap-3 mt-2"
+    <motion.div
+      className="flex justify-center gap-5 mt-2"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
-      {/* Run Button */}
+      {/* Run Button - Rose/Pink tone */}
       <motion.button
-        className="bg-blue-600  hover:cursor-pointer hover:bg-blue-700 text-white rounded-2xl shadow px-6 py-3 text-sm font-semibold flex items-center gap-2 disabled:opacity-50 transition-all"
+        className="bg-rose-500 hover:bg-rose-600 text-white rounded-2xl hover:cursor-pointer shadow px-6 py-3 text-sm font-semibold flex items-center gap-2 disabled:opacity-50 transition-all"
         onClick={handleRunClick}
         disabled={isRunning}
-        whileHover={{ scale: 1 }}
+        whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
         {isRunning ? (
@@ -106,13 +118,12 @@ const ControlPanel = ({ onRun, onSave, onAI }) => {
         )}
       </motion.button>
 
-      {/* Save Button */}
+      {/* Save Button - Amber tone (logical "save" color) */}
       <motion.button
-        className={`${
-          isAuthenticated 
-            ? 'bg-green-600 hover:bg-green-700' 
+        className={`${isAuthenticated
+            ? 'bg-neutral-800 hover:bg-neutral-900'
             : 'bg-gray-400 cursor-not-allowed'
-        } text-white rounded-2xl shadow px-6 py-3 text-sm font-semibold  hover:cursor-pointer flex items-center gap-2 disabled:opacity-50 transition-all`}
+          } text-white rounded-2xl shadow px-6 py-3 text-sm font-semibold hover:cursor-pointer flex items-center gap-2 disabled:opacity-50 transition-all`}
         onClick={handleSaveClick}
         disabled={isSaving || !isAuthenticated}
         whileHover={isAuthenticated ? { scale: 1.05 } : {}}
@@ -136,16 +147,20 @@ const ControlPanel = ({ onRun, onSave, onAI }) => {
         )}
       </motion.button>
 
-      {/* AI Button */}
+      {/* AI Button - Muted Indigo Gradient */}
       <motion.button
-        className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-2xl shadow px-6 py-3 text-sm font-semibold flex items-center gap-2 disabled:opacity-50 transition-all hover:cursor-pointer"
+        className="bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 text-white rounded-2xl shadow px-6 py-3 text-sm font-semibold flex items-center gap-2 disabled:opacity-50 transition-all hover:cursor-pointer"
         onClick={handleAiClick}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
+        <Bot className="w-4 h-4" />
         AI Enhance
       </motion.button>
+
+      {isShow && <AIComponent onClose={() => setIsShow(false)} />}
     </motion.div>
+
   );
 };
 

@@ -6,7 +6,9 @@ exports.handleCodeInstruction = async (req, res) => {
   const { html, css, js, instruction } = req.body;
 
   const prompt = `
-You are an AI code assistant. Update the HTML, CSS, and JS below based on this instruction: "${instruction}"
+You are an AI code assistant. ONLY reply with valid JSON in the format below. Do not include any extra explanation, markdown, or text.
+
+Instruction: "${instruction}"
 
 Respond ONLY in this JSON format:
 {
