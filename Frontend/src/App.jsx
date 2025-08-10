@@ -22,7 +22,7 @@ function App() {
     <ToastProvider>
       <Router>
         <Suspense fallback={
-          <div className="flex justify-center items-center h-screen text-indigo-600 text-2xl animate-spin">
+          <div className="flex justify-center items-center h-screen text-rose-600 text-2xl animate-spin">
             <FaSpinner />
           </div>
         }>
