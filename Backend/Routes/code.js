@@ -1,9 +1,15 @@
-const express = require('express');
-const router = express.Router();
-const auth = require('../Middleware/authMiddleware');
-const codeController = require('../Controllers/codeController');
+import express from 'express';
+import auth from '../Middleware/authMiddleware.js';
+import {
+  saveCode,
+  getUserCodes,
+  deleteCodeSnippet
+} from '../Controllers/codeController.js';
 
-router.post('/save', auth, codeController.saveCode);
-router.get('/my-codes', auth, codeController.getUserCodes);
-router.delete('/delete/:id',auth,codeController.deleteCodeSnippet);
-module.exports = router;
+const router = express.Router();
+
+router.post('/save', auth, saveCode);
+router.get('/my-codes', auth, getUserCodes);
+router.delete('/delete/:id', auth, deleteCodeSnippet);
+
+export default router;

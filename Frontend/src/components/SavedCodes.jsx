@@ -67,10 +67,10 @@ const SavedCodes = () => {
 
   const getTechColor = (tech) => {
     switch (tech) {
-      case 'HTML': return 'bg-gradient-to-r from-rose-500 to-rose-600 text-white border-neutral-400';
-      case 'CSS': return ' bg-gradient-to-r from-rose-500 to-rose-600 text-white border-stone-400';
-      case 'JS': return 'bg-neutral-300 text-neutral-900 border-neutral-600';
-      default: return 'bg-neutral-100 text-neutral-700 border-neutral-300';
+      case 'HTML': return 'bg-neutral-700 text-white border-neutral-500';
+      case 'CSS': return 'bg-neutral-700 text-white border-neutral-500';
+      case 'JS': return 'bg-neutral-700 text-white border-neutral-600';
+      default: return 'bg-neutral-700 text-neutral-100 border-neutral-600';
     }
   };
 
@@ -155,10 +155,10 @@ const SavedCodes = () => {
 
   if (savedCodes.length === 0) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-neutral-900 text-neutral-300">
         <div className="text-center">
-          <Code2 className="w-16 h-16 text-neutral-500 mx-auto mb-4" />
-          <p className="text-neutral-700 text-base font-medium">
+          <Code2 className="w-16 h-16 text-neutral-600 mx-auto mb-4" />
+          <p className="text-base font-medium">
             {isAuth ? "Saved Codes will appear here" : "Login to Save Reusable Codes here"}
           </p>
         </div>
@@ -167,7 +167,7 @@ const SavedCodes = () => {
   }
 
   return (
-    <div className="min-h-screen py-8 px-4 relative">
+    <div className="min-h-screen py-8 px-4 text-neutral-100 relative">
       <AnimatePresence>
         {showConfirmModal && (
           <motion.div
@@ -175,12 +175,12 @@ const SavedCodes = () => {
             animate={{ y: 10, opacity: 1 }}
             exit={{ y: -30, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="absolute left-1/2 transform -translate-x-1/2 z-20 w-full max-w-md p-6 rounded-lg shadow-lg bg-gradient-to-r from-neutral-800 to-neutral-900 text-white font-medium"
+            className="absolute left-1/2 transform -translate-x-1/2 z-20 w-full max-w-md p-6 rounded-lg shadow-lg bg-neutral-800 text-white font-medium"
           >
             <p className="mb-4">Are you sure you want to unsave this code snippet?</p>
             <div className="flex justify-end gap-3">
-              <button onClick={cancelUnsave} className="px-4 py-2 bg-neutral-300 text-neutral-900 rounded-lg font-semibold hover:bg-neutral-400 transition hover:cursor-pointer">Cancel</button>
-              <button onClick={() => handleUnsave(codeToDelete)} className="px-4 py-2 bg-neutral-700 text-white rounded-lg font-semibold hover:bg-neutral-600 transition hover:cursor-pointer">Yes, Unsave</button>
+              <button onClick={cancelUnsave} className="px-4 py-2 bg-neutral-600 text-white rounded-lg font-semibold hover:bg-neutral-500 transition">Cancel</button>
+              <button onClick={() => handleUnsave(codeToDelete)} className="px-4 py-2 bg-rose-600 text-white rounded-lg font-semibold hover:bg-rose-500 transition">Yes, Unsave</button>
             </div>
           </motion.div>
         )}
@@ -188,8 +188,8 @@ const SavedCodes = () => {
 
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-neutral-900 mb-1">Saved Code Snippets</h1>
-          <p className="text-neutral-700 text-sm">Your collection of reusable code components</p>
+          <h1 className="text-2xl font-bold text-white mb-1">Saved Code Snippets</h1>
+          <p className="text-neutral-400 text-sm">Your collection of reusable code components</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -203,12 +203,12 @@ const SavedCodes = () => {
                 variants={cardVariants}
                 initial="hidden"
                 animate="visible"
-                className={`bg-white rounded-xl shadow-md border border-neutral-300 overflow-hidden hover:shadow-lg hover:border-neutral-400 transition-all duration-300 ${isExpanded ? 'lg:col-span-2 xl:col-span-3' : ''}`}
+                className={`bg-neutral-800 rounded-xl shadow-md border border-neutral-700 overflow-hidden hover:border-neutral-500 transition-all duration-300 ${isExpanded ? 'lg:col-span-2 xl:col-span-3' : ''}`}
               >
                 <div className="p-5">
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h3 className="text-base font-semibold text-neutral-900 mb-2">{code.name}</h3>
+                      <h3 className="text-base font-semibold text-white mb-2">{code.name}</h3>
                       <div className="flex flex-wrap gap-2">
                         {techStack.map((tech) => (
                           <span
@@ -226,14 +226,14 @@ const SavedCodes = () => {
                   <div className="flex flex-wrap gap-3">
                     <button
                       onClick={() => handleViewCode(code.id)}
-                      className="flex items-center gap-2 px-3 py-1.5 text-sm bg-neutral-700  text-white rounded-lg hover:bg-neutral-800 transition hover:cursor-pointer"
+                      className="flex items-center gap-2 px-3 py-1.5 text-sm bg-neutral-900 text-white rounded-lg hover:bg-neutral-850 hover:cursor-pointer transition"
                     >
                       <Eye className="w-4 h-4" />
                       {isExpanded ? 'Hide Code' : 'View Code'}
                     </button>
                     <button
                       onClick={() => handleUnsaveClick(code.id)}
-                      className="flex items-center gap-2 px-3 py-1.5 text-sm bg-neutral-300 text-neutral-800 rounded-lg hover:bg-neutral-400 transition hover:cursor-pointer"
+                      className="flex items-center gap-2 px-3 py-1.5 text-sm bg-rose-600 text-white rounded-lg hover:bg-rose-500 transition"
                     >
                       <Trash2 className="w-4 h-4" />
                       Unsave
@@ -248,10 +248,10 @@ const SavedCodes = () => {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.4, ease: 'easeInOut' }}
-                      className="border-t border-neutral-300 bg-neutral-100"
+                      className="border-t border-neutral-700 bg-neutral-900"
                     >
                       <div className="p-5">
-                        <div className="flex border-b border-neutral-300 mb-4">
+                        <div className="flex border-b border-neutral-700 mb-4">
                           {techStack.map((tech) => {
                             const tabKey = tech.toLowerCase();
                             const isActive = activeTab === tabKey;
@@ -265,8 +265,8 @@ const SavedCodes = () => {
                                 onClick={() => setActiveTab(tabKey)}
                                 className={`px-4 py-2 text-sm font-medium rounded-t-md transition-all duration-200 ${
                                   isActive
-                                    ? 'text-neutral-900 bg-white border-l border-r border-t border-neutral-300 -mb-px shadow-sm'
-                                    : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-200'
+                                    ? 'text-white bg-neutral-800 border border-neutral-600 -mb-px shadow-sm'
+                                    : 'text-neutral-400 hover:text-white hover:bg-neutral-700'
                                 }`}
                               >
                                 <div className="flex items-center gap-1">
@@ -281,7 +281,7 @@ const SavedCodes = () => {
                         <div className="relative">
                           <button
                             onClick={() => handleCopy(getActiveTabContent(code), activeTab)}
-                            className="absolute top-3 right-3 p-2 bg-neutral-600 text-white rounded-lg hover:bg-neutral-700 transition"
+                            className="absolute top-3 right-3 p-2 bg-neutral-700 text-white rounded-lg hover:bg-neutral-600 transition"
                             aria-label="Copy Code"
                           >
                             <Copy className="w-4 h-4" />
@@ -293,7 +293,7 @@ const SavedCodes = () => {
                             initial="hidden"
                             animate="visible"
                             exit="hidden"
-                            className="whitespace-pre-wrap p-4 rounded-md border border-neutral-400 bg-white font-mono text-sm overflow-x-auto max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-400 text-neutral-900"
+                            className="whitespace-pre-wrap p-4 rounded-md border border-neutral-700 bg-neutral-800 font-mono text-sm overflow-x-auto max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-600 text-neutral-100"
                           >
                             {getActiveTabContent(code)}
                           </motion.pre>

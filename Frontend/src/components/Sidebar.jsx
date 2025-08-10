@@ -78,23 +78,19 @@ const Sidebar = () => {
         ref={sidebarRef}
         variants={sidebarVariants}
         animate={isOpen ? "open" : "closed"}
-        className="fixed left-0 top-16 h-[calc(100vh-4rem)] bg-neutral-100 border-r border-neutral-200 shadow-lg z-40 overflow-y-auto scrollbar-hide"
+        className="fixed left-0 top-16 h-[calc(100vh-4rem)] z-40 overflow-y-auto scrollbar-hide backdrop-blur-xl bg-black/30 border-r border-white/10 shadow-lg"
       >
         <div className="flex flex-col h-full px-6 py-6 space-y-6">
-          {/* Saved Codes */}
-          {/* Saved Codes */}
           {/* Saved Codes */}
           <motion.a
             href="/saved-codes"
             variants={itemVariants}
             whileHover={{ scale: 1.03 }}
-            className="flex items-center justify-center gap-2 border-neutral-200 bg-gradient-to-r from-stone-600 to-stone-700 font-medium px-4 py-2 rounded-md border shadow-sm hover:from-stone-700 hover:to-stone-800 transition text-white"
+            className="flex items-center justify-center gap-2 bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-md font-medium transition backdrop-blur-sm border border-white/10"
           >
             <Bookmark className="w-4 h-4" />
             Saved Codes
           </motion.a>
-
-
 
           {/* Navigation Links */}
           {sidebarData.map((section, sectionIndex) => (
@@ -106,7 +102,7 @@ const Sidebar = () => {
               transition={{ delay: sectionIndex * 0.1 }}
               className="space-y-3"
             >
-              <h3 className="text-xs font-semibold text-neutral-600 uppercase tracking-wide px-1">
+              <h3 className="text-xs font-semibold text-rose-400 uppercase tracking-wide px-1">
                 {section.category}
               </h3>
               <div className="space-y-1">
@@ -116,11 +112,11 @@ const Sidebar = () => {
                     href={item.component}
                     whileHover={{ x: 4 }}
                     whileTap={{ scale: 0.98 }}
-                    className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-neutral-700 hover:text-rose-600 hover:bg-white/60 transition-all group"
+                    className="flex items-center px-3 py-2 rounded-md text-sm  text-white/90 hover:text-rose-300 hover:bg-white/10 transition-all group"
                   >
-                    <div className="w-2 h-0.5 bg-stone-600 rounded-full mr-3 group-hover:bg-rose-600 transition" />
+                    <div className="w-2 h-0.5 bg-white rounded-full mr-3 group-hover:bg-rose-300 transition" />
                     {item.name}
-                    <ChevronRight className="ml-auto w-4 h-4 text-neutral-400 group-hover:text-rose-600 transition-opacity opacity-0 group-hover:opacity-100" />
+                    <ChevronRight className="ml-auto w-4 h-4 text-neutral-400 group-hover:text-rose-500 transition-opacity opacity-0 group-hover:opacity-100" />
                   </motion.a>
                 ))}
               </div>
@@ -136,7 +132,7 @@ const Sidebar = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={() => setIsOpen(false)}
-          className="fixed inset-0 bg-neutral-900/20 z-30 lg:hidden"
+          className="fixed inset-0 bg-black/40 z-30 lg:hidden"
         />
       )}
     </>

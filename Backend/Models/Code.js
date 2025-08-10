@@ -1,19 +1,14 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const CodeSnippetSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  
-  name: { type: String, default: 'Untitled Code' }, // replaces 'title'
-  
-  tags: [{ type: String }], // array of tags like ["HTML", "CSS", "JavaScript"]
-  
+  name: { type: String, default: 'Untitled Code' },
+  tags: [{ type: String }],
   html: { type: String, default: '' },
   css: { type: String, default: '' },
-  js: { type: String, default: '' },
-
-  // optional: id field (optional, MongoDB already generates _id)
-  // id: { type: String }, // only if you want a custom string ID
-
+  js: { type: String, default: '' }
 }, { timestamps: true });
 
-module.exports = mongoose.model('CodeSnippet', CodeSnippetSchema);
+const CodeSnippet = mongoose.model('CodeSnippet', CodeSnippetSchema);
+
+export default CodeSnippet;

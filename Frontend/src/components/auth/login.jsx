@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useToast } from '../ToastProvider';
+
 const Login = () => {
   const {showToast} = useToast();
   const [formData, setFormData] = useState({
@@ -29,8 +30,6 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Optional: add your own validation here, set errors if invalid
-
     try {
       const baseUrl = import.meta.env.VITE_API_URL;
       const response = await fetch( `${baseUrl}/api/auth/login`, {
@@ -43,7 +42,6 @@ const Login = () => {
       });
 
       if (!response.ok) {
-        // You can customize error handling here based on response status
         const errData = await response.json();
         setErrors({ general: errData.message || 'Login failed' });
         setIsLoading(false);
@@ -51,14 +49,10 @@ const Login = () => {
       }
 
       const data = await response.json();
-      // data: { token, user: { id, fullName, email } }
-
-      // Save token and user id to localStorage
       localStorage.setItem('authToken', data.token);
       localStorage.setItem('userId', data.user.id);
 
       setIsLoading(false);
-      // Redirect to home page
       window.location.href = "/";
 
     } catch (error) {
@@ -67,10 +61,9 @@ const Login = () => {
     }
   };
 
-
   const handleBlur = (e) => {
     const { name, value } = e.target;
-    if (value.trim() === '') return; // Don't validate empty fields
+    if (value.trim() === '') return;
 
     let newErrors = { ...errors };
 
@@ -104,34 +97,12 @@ const Login = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-
-      {/* Floating Elements */}
-      {floatingElements.map((element, index) => (
-        <motion.div
-          key={index}
-          className="absolute text-2xl opacity-20 pointer-events-none"
-          style={{ left: `${element.x}%`, top: `${element.y}%` }}
-          animate={{
-            y: [-20, 20, -20],
-            x: [-10, 10, -10],
-            rotate: [0, 360]
-          }}
-          transition={{
-            duration: element.duration,
-            delay: element.delay,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
-          {element.icon}
-        </motion.div>
-      ))}
+    <div className="min-h-screen bg-gradient-to-br from-neutral-800 via-neutral-900 to-black relative overflow-hidden flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
 
       {/* Gradient Orbs */}
-      <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20 blur-xl"></div>
-      <div className="absolute bottom-20 right-10 w-40 h-40 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-full opacity-20 blur-xl"></div>
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-gradient-to-r from-emerald-400 to-cyan-500 rounded-full opacity-10 blur-3xl"></div>
+      <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-rose-500 to-rose-600 rounded-full opacity-20 blur-xl"></div>
+      <div className="absolute bottom-20 right-10 w-40 h-40 bg-gradient-to-r from-neutral-600 to-neutral-700 rounded-full opacity-20 blur-xl"></div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-gradient-to-r from-rose-400 to-rose-500 rounded-full opacity-10 blur-3xl"></div>
 
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -151,14 +122,13 @@ const Login = () => {
             href="/"
             className="
     fixed top-4 left-4 flex items-center space-x-2
-    text-indigo-600 hover:text-blue-600
+    text-rose-400 hover:text-rose-300
     font-semibold text-md
-    underline decoration-indigo-400 decoration-2
-    hover:decoration-blue-500
+    underline decoration-rose-400 decoration-2
+    hover:decoration-rose-300
     transition duration-300
   "
           >
-            {/* Back arrow SVG */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 stroke-current"
@@ -174,25 +144,25 @@ const Login = () => {
             <span>Back to Home</span>
           </a>
 
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent mb-2 my-4">
+          <h2 className="text-3xl font-bold text-white mb-2 my-4">
             Welcome Back
           </h2>
-          <p className="text-slate-600 text-m">
-            Sign in to your CodeHub account
+          <p className="text-rose-300 text-m">
+            Sign in to your DevPlay account
           </p>
         </motion.div>
 
-        {/* Form */}
+        {/* Form - AI Header Style */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-white/20"
+          className="bg-gradient-to-r from-neutral-700 to-neutral-800 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-neutral-600"
         >
            <form onSubmit={handleSubmit} noValidate>
             {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-white mb-2">
                 Email Address
               </label>
               <motion.input
@@ -205,7 +175,7 @@ const Login = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-white/50 backdrop-blur-sm ${errors.email ? 'border-red-400' : 'border-slate-300'
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-200 bg-white/20 backdrop-blur-sm text-white placeholder-white/60 ${errors.email ? 'border-rose-500' : 'border-white/30'
                   }`}
                 placeholder="Enter your email"
               />
@@ -213,7 +183,7 @@ const Login = () => {
                 <motion.p
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mt-2 text-sm text-red-600 flex items-center"
+                  className="mt-2 text-sm text-rose-300 flex items-center"
                 >
                   <span className="mr-2"></span>
                   {errors.email}
@@ -222,8 +192,8 @@ const Login = () => {
             </div>
 
             {/* Password */}
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-2">
+            <div className="mt-4">
+              <label htmlFor="password" className="block text-sm font-medium text-white mb-2">
                 Password
               </label>
               <motion.input
@@ -236,7 +206,7 @@ const Login = () => {
                 value={formData.password}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-white/50 backdrop-blur-sm ${errors.password ? 'border-red-400' : 'border-slate-300'
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-200 bg-white/20 backdrop-blur-sm text-white placeholder-white/60 ${errors.password ? 'border-rose-500' : 'border-white/30'
                   }`}
                 placeholder="Enter your password"
               />
@@ -244,7 +214,7 @@ const Login = () => {
                 <motion.p
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mt-2 text-sm text-red-600 flex items-center"
+                  className="mt-2 text-sm text-rose-300 flex items-center"
                 >
                   <span className="mr-2"></span>
                   {errors.password}
@@ -253,16 +223,16 @@ const Login = () => {
             </div>
 
             {/* Remember Me & Forgot Password */}
-            <div className="flex items-center justify-between my-4">
+            <div className="flex items-center justify-between my-6">
               <div className="flex items-center">
                 <motion.input
                   whileHover={{ scale: 1.1 }}
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-rose-500 focus:ring-rose-500 border-white/40 rounded bg-white/20"
                 />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-slate-700">
+                <label htmlFor="remember-me" className="ml-2 block text-sm text-white">
                   Remember me
                 </label>
               </div>
@@ -270,7 +240,7 @@ const Login = () => {
               <motion.a
                 href="/forgot-password"
                 whileHover={{ scale: 1.05 }}
-                className="text-sm text-indigo-600 hover:text-indigo-500 transition-colors duration-200"
+                className="text-sm text-rose-400 hover:text-rose-300 transition-colors duration-200"
               >
                 Forgot password?
               </motion.a>
@@ -280,12 +250,12 @@ const Login = () => {
             <motion.button
               whileHover={{
                 scale: 1.02,
-                boxShadow: "0 20px 40px -10px rgba(79, 70, 229, 0.4)"
+                boxShadow: "0 20px 40px -10px rgba(244, 63, 94, 0.4)"
               }}
               whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={isLoading}
-              className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-lg text-white font-semibold bg-gradient-to-r from-indigo-600 to-blue-600 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 disabled:opacity-70"
+              className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-lg text-white font-semibold bg-gradient-to-r from-rose-500 to-rose-600 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 transition-all duration-200 disabled:opacity-70"
             >
               {isLoading ? (
                 <motion.div
@@ -309,54 +279,17 @@ const Login = () => {
             transition={{ delay: 0.6 }}
             className="mt-6 text-center"
           >
-            <p className="text-slate-600">
+            <p className="text-white">
               Don't have an account?{' '}
               <motion.a
                 href="/signup"
                 whileHover={{ scale: 1.05 }}
-                className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors duration-200"
+                className="font-medium text-rose-400 hover:text-rose-300 transition-colors duration-200"
               >
                 Sign up here
               </motion.a>
             </p>
           </motion.div>
-
-          {/* Social Login */}
-          {/* <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-            className="mt-6"
-          >
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-slate-300"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white/80 text-slate-500">Or continue with</span>
-              </div>
-            </div>
-
-            <div className="mt-6 grid grid-cols-2 gap-3">
-              <motion.button
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full inline-flex justify-center items-center py-3 px-4 border border-slate-300 rounded-lg shadow-sm bg-white/70 text-sm font-medium text-slate-700 hover:bg-white/90 transition-all duration-200"
-              >
-                <span className="mr-2">🐙</span>
-                GitHub
-              </motion.button>
-
-              <motion.button
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full inline-flex justify-center items-center py-3 px-4 border border-slate-300 rounded-lg shadow-sm bg-white/70 text-sm font-medium text-slate-700 hover:bg-white/90 transition-all duration-200"
-              >
-                <span className="mr-2">🔗</span>
-                Google
-              </motion.button>
-            </div>
-          </motion.div> */}
         </motion.div>
 
         {/* Features */}

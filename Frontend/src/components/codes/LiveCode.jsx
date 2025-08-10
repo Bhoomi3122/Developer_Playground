@@ -144,13 +144,13 @@ const OutputScreen = ({ htmlCode = '', cssCode = '', jsCode = '' }) => {
 
   return (
     <motion.div
-      className="h-full flex flex-col bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden"
+      className="h-full flex flex-col bg-neutral-200 rounded-lg border border-gray-200 shadow-sm overflow-hidden"
       initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.2 }}
     >
       {/* Header */}
-      <div className="flex items-center justify-between bg-gray-50 px-3 py-2 border-b border-gray-200">
+      <div className="flex items-center justify-between bg-neutral-200 px-3 py-2 border-b border-gray-200">
         <div className="flex items-center gap-1.5">
           <div className="w-2.5 h-2.5 rounded-full bg-red-400"></div>
           <div className="w-2.5 h-2.5 rounded-full bg-yellow-400"></div>

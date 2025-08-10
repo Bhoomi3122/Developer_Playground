@@ -32,37 +32,58 @@ const AIComponent = ({ onClose }) => {
     if (!currentSnippetInfo) return [];
     
     const suggestions = [
-      {
-        text: "Make this responsive",
-        icon: "📱",
-        description: "Add responsive design features"
-      },
-      {
-        text: "Add animations",
-        icon: "✨",
-        description: "Include CSS animations and transitions"
-      },
-      {
-        text: "Improve accessibility",
-        icon: "♿",
-        description: "Add ARIA labels and accessibility features"
-      },
-      {
-        text: "Optimize performance",
-        icon: "⚡",
-        description: "Optimize code for better performance"
-      },
-      {
-        text: "Add dark mode",
-        icon: "🌙",
-        description: "Implement dark mode support"
-      },
-      {
-        text: "Convert to modern syntax",
-        icon: "🔄",
-        description: "Update to ES6+ and modern practices"
-      }
-    ];
+  {
+    text: "Change background color to light gray",
+    icon: "🎨",
+    description: "Modify the background color of the page or section"
+  },
+  {
+    text: "Change text color to black",
+    icon: "🖌️",
+    description: "Update the text color of the content"
+  },
+  {
+    text: "Increase font size of headings",
+    icon: "🔠",
+    description: "Make the headings more prominent"
+  },
+  {
+    text: "Change button color to blue",
+    icon: "🔵",
+    description: "Update button styles with a new color"
+  },
+  {
+    text: "Center align all text",
+    icon: "📐",
+    description: "Align text content to center"
+  },
+  {
+    text: "Change font family to Roboto",
+    icon: "🆎",
+    description: "Apply Roboto font to all text"
+  },
+  {
+    text: "Increase padding inside containers",
+    icon: "📦",
+    description: "Add more spacing inside elements"
+  },
+  {
+    text: "Add hover effect on links",
+    icon: "🖱️",
+    description: "Style links to react on hover"
+  },
+  {
+    text: "Round the corners of cards",
+    icon: "🟪",
+    description: "Apply border-radius to card components"
+  },
+  {
+    text: "Change navbar background to white",
+    icon: "⬜",
+    description: "Customize the navbar section"
+  }
+];
+
 
     return suggestions;
   };
@@ -120,124 +141,128 @@ const AIComponent = ({ onClose }) => {
     };
   }, [isResizing, resizeDirection, resizeStart, isMaximized]);
 
-  // Simulate AI processing with context awareness
-  const processAIRequest = async (userMessage) => {
-    if (!currentSnippetInfo) return "No snippet context available.";
+  const matchIntent = (userInput) => {
+  const intents = getContextualSuggestions();
+  const input = userInput.toLowerCase();
+  return intents.find(intent => {
+    const keyWords = intent.text.toLowerCase().split(' ');
+    return keyWords.some(word => input.includes(word));
+  });
+};
 
-    // Simulate AI processing based on current snippet context
-    const context = {
-      snippetName: currentSnippetInfo.name,
-      htmlCode: currentSnippetInfo.codes?.html || '',
-      cssCode: currentSnippetInfo.codes?.css || '',
-      jsCode: currentSnippetInfo.codes?.js || '',
-      tags: currentSnippetInfo.tags || []
-    };
 
-    // Simulate different AI responses based on user input
-    const responses = {
-      responsive: {
-        message: `I'll make "${context.snippetName}" responsive by adding mobile-first CSS media queries.`,
-        codeChanges: {
-          css: context.cssCode + `\n\n/* AI Enhancement: Responsive Design */\n@media (max-width: 768px) {\n  .container { padding: 1rem; }\n  .grid { grid-template-columns: 1fr; }\n}\n\n@media (max-width: 480px) {\n  body { font-size: 14px; }\n}`
-        }
-      },
-      animation: {
-        message: `Adding smooth animations to "${context.snippetName}" for better user experience.`,
-        codeChanges: {
-          css: context.cssCode + `\n\n/* AI Enhancement: Animations */\n* { transition: all 0.3s ease; }\n.fade-in { animation: fadeIn 0.5s ease-in; }\n@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }`
-        }
-      },
-      accessibility: {
-        message: `Improving accessibility for "${context.snippetName}" with ARIA labels and semantic HTML.`,
-        codeChanges: {
-          html: context.htmlCode.replace(/<div/g, '<div role="region" aria-label="Content section"')
-        }
-      },
-      performance: {
-        message: `Optimizing "${context.snippetName}" for better performance and loading speed.`,
-        codeChanges: {
-          css: context.cssCode + `\n\n/* AI Enhancement: Performance */\n.optimized { will-change: transform; transform: translateZ(0); }\nimg { loading: lazy; }`
-        }
-      },
-      dark: {
-        message: `Adding dark mode support to "${context.snippetName}".`,
-        codeChanges: {
-          css: context.cssCode + `\n\n/* AI Enhancement: Dark Mode */\n@media (prefers-color-scheme: dark) {\n  body { background: #1a1a1a; color: #ffffff; }\n  .card { background: #2d2d2d; border-color: #404040; }\n}`
-        }
-      }
-    };
+const handleSendMessage = async () => {
+  console.log('[DEBUG] handleSendMessage triggered.');
 
-    // Determine response based on user message
-    const userMsg = userMessage.toLowerCase();
-    let response = responses.responsive; // default
+  const trimmed = inputValue.trim();
+  if (!trimmed || !currentSnippet) {
+    console.warn('[WARN] Input is empty or no currentSnippet found.');
+    return;
+  }
 
-    if (userMsg.includes('responsive') || userMsg.includes('mobile')) {
-      response = responses.responsive;
-    } else if (userMsg.includes('animation') || userMsg.includes('animate')) {
-      response = responses.animation;
-    } else if (userMsg.includes('accessibility') || userMsg.includes('aria')) {
-      response = responses.accessibility;
-    } else if (userMsg.includes('performance') || userMsg.includes('optimize')) {
-      response = responses.performance;
-    } else if (userMsg.includes('dark') || userMsg.includes('theme')) {
-      response = responses.dark;
-    }
+  console.log('[DEBUG] User input:', trimmed);
 
-    return response;
-  };
+  const matched = matchIntent(trimmed);
+  console.log('[DEBUG] matchIntent result:', matched);
 
-  const handleSendMessage = async () => {
-    const trimmedInput = inputValue.trim();
-    if (!trimmedInput || !currentSnippet) return;
-
-    // Add user message
-    const userMessage = {
+  // 1. If no match:
+  if (!matched) {
+    console.info('[INFO] No intent matched. Sending fallback message.');
+    addChatMessage(currentSnippet, {
       id: Date.now(),
-      text: trimmedInput,
-      sender: 'user',
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      text: "❌ Request not recognized. Please choose one of the supported enhancements.",
+      sender: 'bot',
+      timestamp: new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' })
+    });
+    return;
+  }
+
+  // 2. Add user message
+  console.info('[INFO] Adding user message to chat.');
+  addChatMessage(currentSnippet, {
+    id: Date.now() + 1,
+    text: trimmed,
+    sender: 'user',
+    timestamp: new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' })
+  });
+  setInputValue('');
+  setIsLoading(true);
+
+  // 3. Show processing message
+  console.info('[INFO] Showing processing message.');
+  addChatMessage(currentSnippet, {
+    id: Date.now() + 2,
+    text: "🤖 Processing your request… hang tight!",
+    sender: 'bot',
+    timestamp: new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' })
+  });
+
+  // 4. Prepare and send to backend
+  const payload = {
+    html: currentSnippetInfo.codes?.html || '',
+    css: currentSnippetInfo.codes?.css || '',
+    js: currentSnippetInfo.codes?.js || '',
+    instruction: trimmed
+  };
+
+  console.debug('[DEBUG] Payload prepared to send to backend:', payload);
+
+  try {
+    console.log('[DEBUG] Sending request to backend...');
+    const baseUrl = import.meta.env.VITE_API_URL;
+    const res = await fetch(`${baseUrl}/api/enhance`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    console.log('[DEBUG] Backend response status:', res.status);
+
+    if (!res.ok) throw new Error('Server error');
+
+    const updatedCode = await res.json();
+    console.log('[DEBUG] Response from backend:', updatedCode);
+
+    // 5. Inject code via context
+    const newCode = {
+      html: updatedCode.html || currentSnippetInfo.codes?.html || '',
+      css: updatedCode.css || currentSnippetInfo.codes?.css || '',
+      js: updatedCode.js || currentSnippetInfo.codes?.js || ''
     };
 
-    addChatMessage(currentSnippet, userMessage);
-    setInputValue('');
-    setIsLoading(true);
+    console.info('[INFO] Updating snippet code...');
+    updateSnippetCode(currentSnippet, newCode);
+    currentSnippetInfo.onCodeUpdate?.(newCode);
 
-    try {
-      // Process AI request with context
-      const aiResponse = await processAIRequest(trimmedInput);
-      
-      setTimeout(() => {
-        const botMessage = {
-          id: Date.now() + 1,
-          text: aiResponse.message,
-          sender: 'bot',
-          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          codeChanges: aiResponse.codeChanges
-        };
+    // 6. Show success message
+    console.info('[INFO] Showing success message.');
+    addChatMessage(currentSnippet, {
+      id: Date.now() + 3,
+      text: "✅ Code updated successfully!",
+      sender: 'bot',
+      timestamp: new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' })
+    });
 
-        addChatMessage(currentSnippet, botMessage);
+    // 7. Auto-close after 1 second
+    console.info('[INFO] Initiating auto-close in 1 second.');
+    setTimeout(() => {
+      console.info('[INFO] Window closed.');
+      handleClose();
+    }, 1000);
+  } catch (err) {
+    console.error('[ERROR] Failed to update code:', err);
+    addChatMessage(currentSnippet, {
+      id: Date.now() + 4,
+      text: "⚠️ Failed to update code. Please try again.",
+      sender: 'bot',
+      timestamp: new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' })
+    });
+  } finally {
+    console.log('[DEBUG] Finished handleSendMessage. Setting isLoading to false.');
+    setIsLoading(false);
+  }
+};
 
-        // Apply code changes if provided
-        if (aiResponse.codeChanges && currentSnippetInfo?.onCodeUpdate) {
-          const newCode = {
-            html: aiResponse.codeChanges.html || currentSnippetInfo.codes?.html || '',
-            css: aiResponse.codeChanges.css || currentSnippetInfo.codes?.css || '',
-            js: aiResponse.codeChanges.js || currentSnippetInfo.codes?.js || ''
-          };
-          
-          updateSnippetCode(currentSnippet, newCode);
-          if (currentSnippetInfo.onCodeUpdate) {
-            currentSnippetInfo.onCodeUpdate(newCode);
-          }
-        }
-
-        setIsLoading(false);
-      }, 1500);
-    } catch (error) {
-      setIsLoading(false);
-      console.error('Error processing AI request:', error);
-    }
-  };
 
   const handleSuggestionClick = (suggestion) => {
     setInputValue(suggestion.text);
@@ -333,24 +358,24 @@ const AIComponent = ({ onClose }) => {
         </div>
 
         {/* Current Context Info */}
-        <div className="bg-gradient-to-r from-neutral-100 to-stone-100 px-4 py-2 border-b border-neutral-300">
+        <div className="bg-gradient-to-r from-neutral-300 to-stone-300 px-4 py-2 border-b border-neutral-300">
           <div className="flex items-center space-x-2 text-sm">
             <Code className="w-4 h-4 text-rose-500" />
-            <span className="text-neutral-700">
+            <span className="text-neutral-800">
               Context: {currentSnippetInfo.tags?.join(', ') || 'Web Component'}
             </span>
           </div>
         </div>
 
         {/* Messages Area */}
-        <div className="flex-1 overflow-hidden bg-neutral-100">
+        <div className="flex-1 overflow-hidden bg-neutral-200">
           <div className="p-4 h-full overflow-y-auto">
             {messages.length === 0 ? (
               <div className="h-full flex flex-col">
                 <div className="text-center text-neutral-600 mb-6">
-                  <Bot className="w-12 h-12 mx-auto mb-3 text-neutral-500" />
-                  <p className="text-sm mb-2">Ready to enhance your code!</p>
-                  <p className="text-xs text-neutral-500">
+                  <Bot className="w-12 h-12 mx-auto mb-3 text-neutral-600" />
+                  <p className="text-sm mb-2 text-neutral-900">Ready to enhance your code!</p>
+                  <p className="text-xs text-neutral-800">
                     I can help you improve "<span className="text-rose-500 font-medium">{currentSnippetInfo.name}</span>"
                   </p>
                 </div>
@@ -362,13 +387,13 @@ const AIComponent = ({ onClose }) => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 }}
                       onClick={() => handleSuggestionClick(suggestion)}
-                      className="text-left p-3 bg-white hover:bg-neutral-50 rounded-xl border border-neutral-300 transition-all hover:shadow-md hover:border-rose-300"
+                      className="text-left p-3 bg-neutral-300 hover:bg-neutral-400 rounded-xl border border-neutral-400 transition-all hover:shadow-md hover:border-neutral-600"
                     >
                       <div className="flex items-center space-x-3">
                         <span className="text-lg">{suggestion.icon}</span>
                         <div className="flex-1">
                           <p className="text-sm font-medium text-neutral-900">{suggestion.text}</p>
-                          <p className="text-xs text-neutral-600 mt-1">{suggestion.description}</p>
+                          <p className="text-xs text-neutral-800 mt-1">{suggestion.description}</p>
                         </div>
                       </div>
                     </motion.button>
@@ -387,7 +412,7 @@ const AIComponent = ({ onClose }) => {
                     <div className={`max-w-xs px-4 py-2 rounded-2xl ${
                       message.sender === 'user' 
                         ? 'bg-gradient-to-r from-rose-500 to-rose-600 text-white' 
-                        : 'bg-white border border-neutral-300 text-neutral-800'
+                        : 'bg-neutral-100 border border-neutral-300 text-neutral-800'
                     }`}>
                       <p className="text-sm">{message.text}</p>
                       {message.codeChanges && (
@@ -396,7 +421,7 @@ const AIComponent = ({ onClose }) => {
                         </div>
                       )}
                       <p className={`text-xs mt-1 ${
-                        message.sender === 'user' ? 'text-rose-100' : 'text-neutral-500'
+                        message.sender === 'user' ? 'text-rose-100' : 'text-neutral-700'
                       }`}>
                         {message.timestamp}
                       </p>
@@ -425,7 +450,7 @@ const AIComponent = ({ onClose }) => {
         </div>
 
         {/* Input Area */}
-        <div className="p-4 border-t border-neutral-300 bg-white">
+        <div className="p-4 border-t border-neutral-300 bg-neutral-100">
           <div className="flex items-center space-x-2">
             <div className="flex-1">
               <textarea
@@ -434,7 +459,7 @@ const AIComponent = ({ onClose }) => {
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder={`Describe how to enhance "${currentSnippetInfo.name}"...`}
-                className="w-full px-4 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent resize-none"
+                className="w-full text-sm px-4 py-2 rounded-xl border border-neutral-500 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent resize-none"
                 rows="2"
               />
             </div>
@@ -443,7 +468,7 @@ const AIComponent = ({ onClose }) => {
               disabled={!inputValue.trim() || isLoading}
               className={`p-2 rounded-full transition-all ${
                 inputValue.trim() && !isLoading
-                  ? 'bg-gradient-to-r from-rose-500 to-rose-600 text-white hover:shadow-lg'
+                  ? 'bg-gradient-to-r from-neutral-800 to-neutral-900 text-white hover:shadow-lg'
                   : 'bg-neutral-300 text-neutral-500 cursor-not-allowed'
               }`}
             >

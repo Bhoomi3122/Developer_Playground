@@ -1,6 +1,6 @@
-const CodeSnippet = require('../Models/Code');
+import CodeSnippet from '../Models/Code.js';
 
-exports.saveCode = async (req, res) => {
+export const saveCode = async (req, res) => {
   const { name, tags, html, css, js } = req.body;
 
   try {
@@ -8,7 +8,6 @@ exports.saveCode = async (req, res) => {
     const existingCode = await CodeSnippet.findOne({ user: req.user.id, name });
 
     if (existingCode) {
-      // Code snippet with this name already exists
       return res.status(400).json({ message: 'Code snippet with this name is already saved.' });
     }
 
@@ -29,13 +28,12 @@ exports.saveCode = async (req, res) => {
   }
 };
 
-
-exports.getUserCodes = async (req, res) => {
+export const getUserCodes = async (req, res) => {
   try {
     const codes = await CodeSnippet.find({ user: req.user.id }).sort({ createdAt: -1 });
 
     const formattedCodes = codes.map((code) => ({
-      id: code._id.toString(),   // <-- send MongoDB ObjectId here as string
+      id: code._id.toString(),
       name: code.name,
       html: code.html,
       css: code.css,
@@ -49,9 +47,7 @@ exports.getUserCodes = async (req, res) => {
   }
 };
 
-
-
-exports.deleteCodeSnippet = async (req, res) => {
+export const deleteCodeSnippet = async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -67,4 +63,3 @@ exports.deleteCodeSnippet = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
-

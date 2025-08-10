@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
+import { handleCodeInstruction } from '../Controllers/AIController.js';
+
 const router = express.Router();
-const { handleCodeInstruction } = require('../Controllers/AIController');
 
 // POST /api/gemini/code-update
 router.post('/', handleCodeInstruction);
 
-module.exports = router;
+export default router;

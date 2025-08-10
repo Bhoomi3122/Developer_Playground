@@ -49,9 +49,9 @@ const CodeEditor = ({ codes, onCodeChange }) => {
   }
 
   return (
-    <div className="h-full flex flex-col bg-white rounded-lg border border-gray-200 shadow-sm">
+    <div className="h-full flex flex-col bg-neutral-200 rounded-lg border border-gray-200 shadow-sm">
       {/* Tabs */}
-      <div className="flex items-center justify-between bg-gray-50 rounded-t-lg border-b border-gray-200 ">
+      <div className="flex items-center justify-between bg-neutral-300 rounded-t-lg border-b border-gray-200 ">
         {/* Tabs */}
         <div className="flex">
           {availableTabs.map((tab) => (
@@ -59,8 +59,8 @@ const CodeEditor = ({ codes, onCodeChange }) => {
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
               className={`flex items-center gap-2 px-3 py-2 text-xs font-medium transition-colors hover:cursor-pointer border-r border-gray-500 last:border-r-0 ${activeTab === tab.key
-                  ? 'bg-gray-300 text-gray-900 border-b-2 border-blue-500'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200 border-gray-600'
+                  ? 'bg-gray-300 text-black-900 border-b-2 border-blue-500'
+                  : 'text-gray-800 hover:text-gray-900 hover:bg-gray-200 border-gray-600'
                 }`}
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
@@ -109,7 +109,7 @@ const CodeEditor = ({ codes, onCodeChange }) => {
             <textarea
               value={codes[activeTab] || ''}
               onChange={(e) => handleCodeChange(e.target.value)}
-              className="w-full h-full p-3 bg-white text-gray-800 font-mono text-xs leading-relaxed resize-none outline-none rounded-b-lg border-0 placeholder-gray-400"
+              className="w-full h-full p-3 bg-neutral-200 text-gray-800 font-mono text-xs leading-relaxed resize-none outline-none rounded-b-lg border-0 placeholder-gray-400"
               placeholder={`Enter your ${activeTab.toUpperCase()} code here...`}
               spellCheck={false}
             />

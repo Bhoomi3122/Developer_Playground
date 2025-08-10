@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'; 
 import { useState } from 'react';
 import { useToast } from '../ToastProvider';
+
 const Signup = () => {
   const {showToast} = useToast();
   const [formData, setFormData] = useState({
@@ -148,33 +149,13 @@ const Signup = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      
-      {/* Floating Elements */}
-      {floatingElements.map((element, index) => (
-        <motion.div
-          key={index}
-          className="absolute text-2xl opacity-20 pointer-events-none"
-          style={{ left: `${element.x}%`, top: `${element.y}%` }}
-          animate={{
-            y: [-20, 20, -20],
-            x: [-10, 10, -10],
-            rotate: [0, 360]
-          }}
-          transition={{
-            duration: element.duration,
-            delay: element.delay,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
-          {element.icon}
-        </motion.div>
-      ))}
+    <div className="min-h-screen bg-gradient-to-br from-neutral-800 via-neutral-900 to-black relative overflow-hidden flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+     
 
       {/* Gradient Orbs */}
-      <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20 blur-xl"></div>
-      <div className="absolute bottom-20 right-10 w-40 h-40 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-full opacity-20 blur-xl"></div>
+      <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-rose-500 to-rose-600 rounded-full opacity-20 blur-xl"></div>
+      <div className="absolute bottom-20 right-10 w-40 h-40 bg-gradient-to-r from-neutral-600 to-neutral-700 rounded-full opacity-20 blur-xl"></div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-gradient-to-r from-rose-400 to-rose-500 rounded-full opacity-10 blur-3xl"></div>
 
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -193,10 +174,10 @@ const Signup = () => {
             href="/"
             className="
               fixed top-4 left-4 flex items-center space-x-2
-              text-indigo-600 hover:text-blue-600
+              text-rose-400 hover:text-rose-300
               font-semibold text-md
-              underline decoration-indigo-400 decoration-2
-              hover:decoration-blue-500
+              underline decoration-rose-400 decoration-2
+              hover:decoration-rose-300
               transition duration-300
             "
           >
@@ -216,26 +197,26 @@ const Signup = () => {
             <span>Back to Home</span>
           </a>
 
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent mb-2 mt-4">
-            Join CodeHub
+          <h2 className="text-3xl font-bold text-white mb-2 mt-4">
+            Join DevPlay
           </h2>
-          <p className="text-slate-600 text-m">
+          <p className="text-rose-300 text-m">
             Start your coding journey with us
           </p>
         </motion.div>
 
-        {/* Form */}
+        {/* Form - AI Header Style */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-white/20"
+          className="bg-gradient-to-r from-neutral-700 to-neutral-800 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-neutral-600"
         >
           <form onSubmit={handleSubmit} className="space-y-4">
 
             {/* Full Name */}
             <div>
-              <label htmlFor="fullName" className="block text-sm font-medium text-slate-700 mb-2">
+              <label htmlFor="fullName" className="block text-sm font-medium text-white mb-2">
                 Full Name
               </label>
               <motion.input
@@ -246,14 +227,14 @@ const Signup = () => {
                 required
                 value={formData.fullName}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-white/50 backdrop-blur-sm"
+                className="w-full px-4 py-2 border border-white/30 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-200 bg-white/20 backdrop-blur-sm text-white placeholder-white/60"
                 placeholder="Enter your full name"
               />
             </div>
 
             {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-white mb-2">
                 Email Address
               </label>
               <motion.input
@@ -265,19 +246,19 @@ const Signup = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-white/50 backdrop-blur-sm
-                  ${errors.email ? 'border-red-500' : 'border-slate-300'}
+                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-200 bg-white/20 backdrop-blur-sm text-white placeholder-white/60
+                  ${errors.email ? 'border-rose-500' : 'border-white/30'}
                 `}
                 placeholder="Enter your email"
               />
               {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                <p className="mt-1 text-sm text-rose-300">{errors.email}</p>
               )}
             </div>
 
             {/* Password */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-white mb-2">
                 Password
               </label>
               <motion.input
@@ -289,19 +270,19 @@ const Signup = () => {
                 value={formData.password}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-white/50 backdrop-blur-sm
-                  ${errors.password ? 'border-red-500' : 'border-slate-300'}
+                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-200 bg-white/20 backdrop-blur-sm text-white placeholder-white/60
+                  ${errors.password ? 'border-rose-500' : 'border-white/30'}
                 `}
                 placeholder="Enter your password"
               />
               {errors.password && (
-                <p className="mt-1 text-sm text-red-600">{errors.password}</p>
+                <p className="mt-1 text-sm text-rose-300">{errors.password}</p>
               )}
             </div>
 
             {/* Confirm Password */}
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-slate-700 mb-2">
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-white mb-2">
                 Confirm Password
               </label>
               <motion.input
@@ -313,33 +294,64 @@ const Signup = () => {
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 bg-white/50 backdrop-blur-sm
-                  ${errors.confirmPassword ? 'border-red-500' : 'border-slate-300'}
+                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-200 bg-white/20 backdrop-blur-sm text-white placeholder-white/60
+                  ${errors.confirmPassword ? 'border-rose-500' : 'border-white/30'}
                 `}
                 placeholder="Confirm your password"
               />
               {errors.confirmPassword && (
-                <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>
+                <p className="mt-1 text-sm text-rose-300">{errors.confirmPassword}</p>
               )}
             </div>
 
             {/* General Error */}
             {errors.general && (
-              <p className="mt-2 text-center text-red-600 font-semibold">{errors.general}</p>
+              <p className="mt-2 text-center text-rose-300 font-semibold">{errors.general}</p>
             )}
 
             {/* Submit Button */}
             <motion.button
               type="submit"
               disabled={isLoading}
-              whileTap={{ scale: 0.95 }}
-              className={`w-full py-3 rounded-lg bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-semibold shadow-lg
-                ${isLoading ? 'opacity-70 cursor-not-allowed' : 'hover:brightness-110'}
+              whileHover={{
+                scale: 1.02,
+                boxShadow: "0 20px 40px -10px rgba(244, 63, 94, 0.4)"
+              }}
+              whileTap={{ scale: 0.98 }}
+              className={`w-full py-3 rounded-lg bg-gradient-to-r from-rose-500 to-rose-600 text-white font-semibold shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 transition-all duration-200
+                ${isLoading ? 'opacity-70 cursor-not-allowed' : 'hover:shadow-xl'}
               `}
             >
-              {isLoading ? 'Signing up...' : 'Sign Up'}
+              {isLoading ? (
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                  className="w-6 h-4 border-2 border-white border-t-transparent rounded-full mx-auto"
+                />
+              ) : (
+                'Sign Up'
+              )}
             </motion.button>
           </form>
+
+          {/* Login Link */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="mt-6 text-center"
+          >
+            <p className="text-white">
+              Already have an account?{' '}
+              <motion.a
+                href="/login"
+                whileHover={{ scale: 1.05 }}
+                className="font-medium text-rose-400 hover:text-rose-300 transition-colors duration-200"
+              >
+                Login here
+              </motion.a>
+            </p>
+          </motion.div>
         </motion.div>
       </motion.div>
     </div>

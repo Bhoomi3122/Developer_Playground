@@ -1,14 +1,13 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const cors = require('cors');
+import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import cors from 'cors';
 
-// Load environment variables from .env file
+import authRoutes from './Routes/auth.js';
+import codeRoutes from './Routes/code.js'; // ✅ ensure .js is added
+import AIRoutes from './Routes/AI.js';
+
 dotenv.config();
-
-const authRoutes = require('./Routes/auth');
-const codeRoutes = require('./Routes/code'); // ✅ import code routes
-const AIRoutes = require('./Routes/AI');
 
 const app = express();
 

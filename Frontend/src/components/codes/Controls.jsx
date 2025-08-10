@@ -121,8 +121,8 @@ const ControlPanel = ({ onRun, onSave, onAI, snippetId, snippetInfo, onCodeUpdat
       {/* Save Button - Amber tone (logical "save" color) */}
       <motion.button
         className={`${isAuthenticated
-            ? 'bg-neutral-800 hover:bg-neutral-900'
-            : 'bg-gray-400 cursor-not-allowed'
+            ? 'bg-green-600 hover:bg-green-800'
+            : 'bg-gray-600 cursor-not-allowed'
           } text-white rounded-2xl shadow px-6 py-3 text-sm font-semibold hover:cursor-pointer flex items-center gap-2 disabled:opacity-50 transition-all`}
         onClick={handleSaveClick}
         disabled={isSaving || !isAuthenticated}
