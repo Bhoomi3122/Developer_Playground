@@ -83,18 +83,7 @@ const Login = () => {
     setErrors(newErrors);
   };
 
-  const floatingElements = [
-    { icon: '💻', delay: 0, duration: 6, x: 8, y: 15 },
-    { icon: '⚡', delay: 1.5, duration: 8, x: 85, y: 20 },
-    { icon: '🚀', delay: 2, duration: 7, x: 12, y: 75 },
-    { icon: '🔧', delay: 3.5, duration: 9, x: 88, y: 65 },
-    { icon: '⭐', delay: 4, duration: 5, x: 6, y: 50 },
-    { icon: '🎯', delay: 2.5, duration: 6.5, x: 92, y: 35 },
-    { icon: '🔥', delay: 1, duration: 7.5, x: 15, y: 30 },
-    { icon: '💡', delay: 0.5, duration: 6, x: 80, y: 80 },
-    { icon: '⚙️', delay: 3, duration: 8.5, x: 5, y: 25 },
-    { icon: '🎨', delay: 4.5, duration: 5.5, x: 90, y: 50 }
-  ];
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-neutral-800 via-neutral-900 to-black relative overflow-hidden flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
