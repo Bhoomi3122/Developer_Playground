@@ -75,18 +75,32 @@ const Navbar = () => {
                 </Link>
               </div>
             ) : (
+               <div className="flex space-x-5">
+              <Link to="/contribute">
+                  <motion.button
+                    whileHover={{
+                      scale: 1.05,
+                      backgroundColor: 'rose-600',
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    className="px-4 bg-rose-500 hover:cursor-pointer py-2 text-white hover:text-white font-medium rounded-lg transition-colors duration-200"
+                  >
+                    Contribute
+                  </motion.button>
+                </Link>
               <motion.button
                 onClick={() => setShowModal(true)}
                 whileHover={{
                   scale: 1.05,
-                  boxShadow: '0 10px 25px -5px rgba(239, 68, 68, 0.3)',
                 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="ml-48 px-6 py-2 bg-gradient-to-r from-rose-500 to-rose-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
+                className=" px-6 py-2  bg-neutral-700 text-white hover:cursor-pointer font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
               >
                 Logout
               </motion.button>
+              </div>
             )}
           </div>
         </div>
