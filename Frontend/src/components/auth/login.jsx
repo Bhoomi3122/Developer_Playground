@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { useToast } from '../ToastProvider';
 
 const Login = () => {
-  const {showToast} = useToast();
+  const { showToast } = useToast();
+  const [hasSubmitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -29,10 +30,10 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+    setSubmitted(true);
     try {
       const baseUrl = import.meta.env.VITE_API_URL;
-      const response = await fetch( `${baseUrl}/api/auth/login`, {
+      const response = await fetch(`${baseUrl}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -146,9 +147,18 @@ const Login = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="bg-gradient-to-r from-neutral-700 to-neutral-800 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-neutral-600"
+          className="bg-gradient-to-r  from-neutral-700 to-neutral-800 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-neutral-600"
         >
-           <form onSubmit={handleSubmit} noValidate>
+          <form onSubmit={handleSubmit} noValidate>
+            {errors.general && hasSubmitted && formData.email && formData.password && (
+              <motion.p
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-2 text-md text-rose-300 bg-neutral-700 font-semibold rounded-md py-1 mb-4 px-4 text-center mx-auto w-full max-w-md"
+              >
+                {errors.general}
+              </motion.p>
+            )}
             {/* Email */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-white mb-2">
@@ -164,7 +174,7 @@ const Login = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-200 bg-white/20 backdrop-blur-sm text-white placeholder-white/60 ${errors.email ? 'border-rose-500' : 'border-white/30'
+                className={`w-90 ml-3 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-200 bg-white/20 backdrop-blur-sm text-white placeholder-white/60 ${errors.email ? 'border-rose-500' : 'border-white/30'
                   }`}
                 placeholder="Enter your email"
               />
@@ -195,20 +205,11 @@ const Login = () => {
                 value={formData.password}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-200 bg-white/20 backdrop-blur-sm text-white placeholder-white/60 ${errors.password ? 'border-rose-500' : 'border-white/30'
+                className={`w-90 ml-3 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all duration-200 bg-white/20 backdrop-blur-sm text-white placeholder-white/60 ${errors.password ? 'border-rose-500' : 'border-white/30'
                   }`}
                 placeholder="Enter your password"
               />
-              {errors.password && (
-                <motion.p
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mt-2 text-sm text-rose-300 flex items-center"
-                >
-                  <span className="mr-2"></span>
-                  {errors.password}
-                </motion.p>
-              )}
+
             </div>
 
             {/* Remember Me & Forgot Password */}
@@ -235,6 +236,7 @@ const Login = () => {
               </motion.a>
             </div>
 
+
             {/* Submit Button */}
             <motion.button
               whileHover={{
@@ -244,7 +246,7 @@ const Login = () => {
               whileTap={{ scale: 0.98 }}
               type="submit"
               disabled={isLoading}
-              className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-lg text-white font-semibold bg-gradient-to-r from-rose-500 to-rose-600 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 transition-all duration-200 disabled:opacity-70"
+              className="w-90 ml-3 hover:cursor-pointer  flex justify-center items-center py-2 px-2 border border-transparent rounded-lg shadow-lg text-white font-semibold bg-gradient-to-r from-rose-500 to-rose-600"
             >
               {isLoading ? (
                 <motion.div

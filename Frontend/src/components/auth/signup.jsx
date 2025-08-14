@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useToast } from '../ToastProvider';
 
 const Signup = () => {
-  const {showToast} = useToast();
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -38,7 +37,6 @@ const Signup = () => {
       case 'email':
         if (!validateEmail(value)) {
           newErrors.email = 'Please enter a valid email address';
-          showToast('Please enter a valid email address');
         } else {
           newErrors.email = '';
         }
@@ -46,7 +44,6 @@ const Signup = () => {
       case 'password':
         if (value.length < 8) {
           newErrors.password = 'Password must be at least 8 characters long';
-          showToast('Password must be at least 8 characters long');
         } else {
           newErrors.password = '';
         }
@@ -54,7 +51,6 @@ const Signup = () => {
       case 'confirmPassword':
         if (value !== formData.password) {
           newErrors.confirmPassword = 'Passwords do not match';
-          showToast('Passwords do not match');
         } else {
           newErrors.confirmPassword = '';
         }
@@ -76,21 +72,21 @@ const Signup = () => {
     if (formData.password !== formData.confirmPassword) {
       const msg = "Passwords don't match";
       setErrors(prev => ({ ...prev, confirmPassword: msg }));
-      showToast(msg);
+
       return;
     }
 
     if (!validateEmail(formData.email)) {
       const msg = 'Please enter a valid email address';
       setErrors(prev => ({ ...prev, email: msg }));
-      showToast(msg);
+
       return;
     }
 
     if (formData.password.length < 8) {
       const msg = 'Password must be at least 8 characters long';
       setErrors(prev => ({ ...prev, password: msg }));
-      showToast(msg);
+ 
       return;
     }
 
@@ -113,7 +109,7 @@ const Signup = () => {
       if (!response.ok) {
         const errorData = await response.json();
         const errorMessage = errorData.message || 'Signup failed';
-        showToast(errorMessage);
+  
         setErrors(prev => ({ ...prev, general: errorMessage }));
         setIsLoading(false);
         return;
@@ -126,28 +122,17 @@ const Signup = () => {
       localStorage.setItem('authToken', data.token);
       localStorage.setItem('userId', data.user.id);
 
-      showToast('Signup successful! Redirecting...');
 
       // Redirect to homepage
       window.location.href = '/';
 
     } catch (error) {
-      showToast(error.message || 'Something went wrong');
+
       setErrors(prev => ({ ...prev, general: error.message || 'Something went wrong' }));
     } finally {
       setIsLoading(false);
     }
   };
-
-  const floatingElements = [
-    { icon: '💻', delay: 0, duration: 6, x: 10, y: 20 },
-    { icon: '⚡', delay: 1, duration: 8, x: 80, y: 15 },
-    { icon: '🚀', delay: 2, duration: 7, x: 15, y: 70 },
-    { icon: '🔧', delay: 3, duration: 9, x: 85, y: 60 },
-    { icon: '⭐', delay: 4, duration: 5, x: 5, y: 45 },
-    { icon: '🎯', delay: 2.5, duration: 6.5, x: 90, y: 30 }
-  ];
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-neutral-800 via-neutral-900 to-black relative overflow-hidden flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
      
@@ -213,7 +198,9 @@ const Signup = () => {
           className="bg-gradient-to-r from-neutral-700 to-neutral-800 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-neutral-600"
         >
           <form onSubmit={handleSubmit} className="space-y-4">
-
+          {errors.general && (
+                <p className="mt-1 text-md font-semibold bg-neutral-700 text-center text-rose-300">{errors.general}</p>
+              )}
             {/* Full Name */}
             <div>
               <label htmlFor="fullName" className="block text-sm font-medium text-white mb-2">
@@ -251,10 +238,11 @@ const Signup = () => {
                 `}
                 placeholder="Enter your email"
               />
-              {errors.email && (
-                <p className="mt-1 text-sm text-rose-300">{errors.email}</p>
-              )}
+              
             </div>
+            {formData.email && errors.email && (
+  <p className="mt-1 text-sm text-rose-300">{errors.email}</p>
+)}
 
             {/* Password */}
             <div>
@@ -304,10 +292,6 @@ const Signup = () => {
               )}
             </div>
 
-            {/* General Error */}
-            {errors.general && (
-              <p className="mt-2 text-center text-rose-300 font-semibold">{errors.general}</p>
-            )}
 
             {/* Submit Button */}
             <motion.button
